@@ -15,8 +15,6 @@ class Grass {
         ];
 
     }
-    //հետազոտում է շրջապատը, որոնում է հետաքրքրող կերպարներին
-    //կերպարը որոշվում է character արգումենտով
     chooseCell(character) {
         var found = [];
         for (var i in this.directions) {
@@ -34,7 +32,7 @@ class Grass {
     //mul() բազմացում
     mul() {
         this.multiply++;
-        if (this.multiply >= 8) {
+        if (this.multiply >= 0) {
             //հետազոտում է շրջապատը, որոնում դատարկ տարածքներ
             var emptyCells = this.chooseCell(0);
             var coord = random(emptyCells);
