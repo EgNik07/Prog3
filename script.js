@@ -1,12 +1,13 @@
-var grassArr = []; //խոտերի զանգված
-var eatersArr = []; //խոտակերների զանգված
+var grassArr = [];
+var redgrassArr = []; 
+var eatersArr = []; 
 var eaterblueArr = [];
 var eaterredArr = [];
 var eaterdarkArr = [];
 var side = 28;
 var matrix = [
-    [5, 5, 5, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 2, 0, 1, 0, 1, 0, 0],
-    [0, 0, 2, 5, 5, 0, 1, 0, 0, 0, 0, 2, 0, 1, 0, 0, 0, 0, 0, 1, 2, 1, 0, 0, 1, 0, 0],
+    [5, 5, 5, 6, 1, 6, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 2, 0, 1, 0, 1, 0, 0],
+    [0, 0, 2, 5, 5, 6, 1, 0, 0, 0, 0, 2, 0, 1, 0, 0, 0, 0, 0, 1, 2, 1, 0, 0, 1, 0, 0],
     [0, 1, 3, 0, 1, 5, 1, 0, 3, 0, 0, 0, 4, 2, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0],
     [0, 0, 2, 0, 1, 1, 0, 4, 0, 0, 1, 4, 4, 1, 0, 0, 0, 0, 0, 1, 2, 0, 2, 0, 1, 0, 0],
     [0, 2, 0, 0, 0, 0, 4, 4, 4, 2, 0, 2, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
@@ -38,7 +39,6 @@ function setup() {
     createCanvas(matrix[0].length * side, matrix.length * side); //կանվասի չափերը դնել մատրիցի չափերին համապատասխան
     background('#acacac');
 
-    //մատրիցի վրա կրկնակի ցիկլը լցնում է խոտերի, խոտակերների զանգվածները օբյեկտներով 
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
 
@@ -64,13 +64,16 @@ function setup() {
                 var eaterdark = new Eaterdark(x, y);
                 eaterdarkArr.push(eaterdark);
             }
+            else if (matrix[y][x] == 6) {
+                var redgrass = new RedGrass(x, y);
+                redgrassArr.push(redgrass);
+            }
 
         }
     }
 }
 
 function draw() {
-    //գծում է աշխարհը
     background('#acacac');
     for (var i = 0; i < matrix.length; i++) {
         for (var j = 0; j < matrix[i].length; j++) {
@@ -98,18 +101,22 @@ function draw() {
                 fill('613a3a')
                 rect(j * side, i * side, side, side);
             }
+            else if (matrix[i][j] == 6) {
+                fill('pink')
+                rect(j * side, i * side, side, side);
+            }
         }
     }
-    //խոտը բազմանում է
     for (var i in grassArr) {
         grassArr[i].mul();
     }
+    for (var i in redgrassArr) {
+        redgrassArr[i].mul();
+    }
 
-    //խոտակերը ուտում է խոտ
     for (var i in eatersArr) {
         eatersArr[i].eat();
     }
-    // console.log(eaterblueArr, "eaterblueArr")
     for (var i in eaterblueArr) {
         eaterblueArr[i].eat();
     }
