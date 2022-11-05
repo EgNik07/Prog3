@@ -2,7 +2,7 @@ class Grass {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.multiply = 0; 
+        this.multiply = 0;
         this.directions = [
             [this.x - 1, this.y - 1],
             [this.x, this.y - 1],
@@ -57,7 +57,7 @@ class GrassEater {
         this.y = y;
         this.multiply = 0;
         this.energy = 5;
-        this.directions =[];
+        this.directions = [];
     }
 
     //թարմացնել շրջապատի կոորդինատները
@@ -82,7 +82,7 @@ class GrassEater {
         for (var i in this.directions) {
             var x = this.directions[i][0];
             var y = this.directions[i][1];
-            
+
             if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
                 if (matrix[y][x] == character) {
                     found.push(this.directions[i]);
@@ -138,7 +138,7 @@ class GrassEater {
 
             //բազմացման գործակիցը մեծացնում է
             this.multiply++;
- 
+
             //մեծացնում է էներգիան
             this.energy++;
 
@@ -173,7 +173,7 @@ class GrassEater {
         var coord = random(emptyCells);
 
         //եթե կա բազմանում է
-        if (coord){
+        if (coord) {
             var x = coord[0];
             var y = coord[1];
             // this.multiply++;
@@ -184,10 +184,10 @@ class GrassEater {
 
             //հիմնական matrix-ում կատարում է գրառում նոր խոտի մասին
             matrix[y][x] = 2;
-        } 
-    else{
-        this.die()
-    }
+        }
+        else {
+            this.die()
+        }
     }
 
     //die() մահանալ
@@ -202,18 +202,18 @@ class GrassEater {
             }
         }
     }
-   
+
 }
 //////////////////////////////////////////////////////////////////////////////////////////
- /////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
 class Eaterblue {
     constructor(x, y) {
         this.x = x;
         this.y = y;
         this.multiply = 1;
         this.energy = 5;
-        this.directions =[];
-    }  
+        this.directions = [];
+    }
     updateCoordinates() {
         this.directions = [
             [this.x - 1, this.y - 1],
@@ -239,8 +239,8 @@ class Eaterblue {
             }
         }
         return found;
-    }   
-        
+    }
+
     move() {
         //որոնում է դատարկ տարածքներ
         var emptyCells = this.chooseCell(0);
@@ -281,7 +281,7 @@ class Eaterblue {
 
             //բազմացման գործակիցը մեծացնում է
             this.multiply++;
- 
+
             //մեծացնում է էներգիան
             this.energy++;
 
@@ -308,15 +308,15 @@ class Eaterblue {
             }
         }
     }
-    
-     //mul() բազմանալ
-     mul() {
+
+    //mul() բազմանալ
+    mul() {
         //փնտրում է դատարկ տարածք
         var emptyCells = this.chooseCell(0);
         var coord = random(emptyCells);
 
         //եթե կա բազմանում է
-        if (coord){
+        if (coord) {
             var x = coord[0];
             var y = coord[1];
             // this.multiply++;
@@ -327,7 +327,7 @@ class Eaterblue {
 
             //հիմնական matrix-ում կատարում է գրառում նոր խոտի մասին
             matrix[y][x] = 2;
-        } 
+        }
     }
 
     //die() մահանալ
@@ -342,17 +342,17 @@ class Eaterblue {
             }
         }
     }
-   
 
-    }
-    ///
-class Eaterred{
+
+}
+///
+class Eaterred {
     constructor(x, y) {
         this.x = x;
         this.y = y;
         this.multiply = 0;
         this.energy = 5;
-        this.directions =[];
+        this.directions = [];
     }
 
     //թարմացնել շրջապատի կոորդինատները
@@ -377,7 +377,7 @@ class Eaterred{
         for (var i in this.directions) {
             var x = this.directions[i][0];
             var y = this.directions[i][1];
-            
+
             if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
                 if (matrix[y][x] == character) {
                     found.push(this.directions[i]);
@@ -398,8 +398,8 @@ class Eaterred{
         if (cօord) {
             var x = cօord[0];
             var y = cօord[1];
-            
-            
+
+
             //շարժվում է
             matrix[y][x] = 4;
             matrix[this.y][this.x] = 1;
@@ -433,7 +433,7 @@ class Eaterred{
 
             //բազմացման գործակիցը մեծացնում է
             this.multiply++;
- 
+
             //մեծացնում է էներգիան
             this.energy++;
 
@@ -468,7 +468,7 @@ class Eaterred{
         var coord = random(emptyCells);
 
         //եթե կա բազմանում է
-        if (coord){
+        if (coord) {
             var x = coord[0];
             var y = coord[1];
             // this.multiply++;
@@ -479,22 +479,22 @@ class Eaterred{
 
             //հիմնական matrix-ում կատարում է գրառում նոր խոտի մասին
             matrix[y][x] = 2;
-        } 
-    else{
-        this.move()
-    }
+        }
+        else {
+            this.move()
+        }
     }
 
-    
-   
+
+
 }
-class Eaterdark{
+class Eaterdark {
     constructor(x, y) {
         this.x = x;
         this.y = y;
         this.multiply = 0;
         this.energy = 5;
-        this.directions =[];
+        this.directions = [];
     }
 
     //թարմացնել շրջապատի կոորդինատները
@@ -519,7 +519,7 @@ class Eaterdark{
         for (var i in this.directions) {
             var x = this.directions[i][0];
             var y = this.directions[i][1];
-            
+
             if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
                 if (matrix[y][x] == character) {
                     found.push(this.directions[i]);
@@ -540,8 +540,8 @@ class Eaterdark{
         if (cօord) {
             var x = cօord[0];
             var y = cօord[1];
-            
-            
+
+
             //շարժվում է
             matrix[y][x] = 5;
             matrix[this.y][this.x] = 3;
@@ -575,7 +575,7 @@ class Eaterdark{
 
             //բազմացման գործակիցը մեծացնում է
             this.multiply++;
- 
+
             //մեծացնում է էներգիան
             this.energy++;
 
@@ -610,7 +610,7 @@ class Eaterdark{
         var coord = random(emptyCells);
 
         //եթե կա բազմանում է
-        if (coord){
+        if (coord) {
             var x = coord[0];
             var y = coord[1];
             // this.multiply++;
@@ -621,13 +621,12 @@ class Eaterdark{
 
             //հիմնական matrix-ում կատարում է գրառում նոր խոտի մասին
             matrix[y][x] = 2;
-        } 
-    else{
-        this.move()
-    }
+        }
+        else {
+            this.move()
+        }
     }
 
-    
-   
+
+
 }
- 
