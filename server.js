@@ -12,7 +12,7 @@ app.get("/", function(req, res){
 });
 
 
-//app.use(express.static('express'));
+app.use(express.static('./'));
 
 app.listen(3000, function(){
 
