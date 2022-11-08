@@ -17,6 +17,9 @@ class Eaterdark extends Main {
             matrix[y][x] = 5;
             matrix[this.y][this.x] = 3;
 
+            var eaterdark = new Eaterdark(x, y);
+            eaterdarkArr.push(eaterdark);
+            
             //նոր կորդինատներ է ստանում
             this.x = x;
             this.y = y;
@@ -91,9 +94,8 @@ class Eaterdark extends Main {
             eaterredArr.push(newEater);
 
             //հիմնական matrix-ում կատարում է գրառում նոր խոտի մասին
-            matrix[y][x] = 2;
-            var eaterdark = new Eaterdark(x, y);
-            eaterdarkArr.push(eaterdark);
+            matrix[y][x] = 5;
+            
         }
         else {
             this.move()
