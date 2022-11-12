@@ -1,41 +1,42 @@
 var grassArr = [];
-var redgrassArr = []; 
-var eatersArr = []; 
+var redgrassArr = [];
+var eatersArr = [];
 var eaterblueArr = [];
 var eaterredArr = [];
 var eaterdarkArr = [];
-var side = 28;
-var matrix = [
-    [5, 5, 5, 6, 1, 6, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 2, 0, 1, 0, 1, 0, 0],
-    [0, 0, 2, 5, 5, 6, 1, 0, 0, 0, 0, 2, 0, 1, 0, 0, 0, 0, 0, 1, 2, 1, 0, 0, 1, 0, 0],
-    [0, 1, 3, 0, 1, 5, 1, 0, 3, 0, 0, 0, 4, 2, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0],
-    [0, 0, 2, 0, 1, 1, 0, 4, 0, 0, 1, 4, 4, 1, 0, 0, 0, 0, 0, 1, 2, 0, 2, 0, 1, 0, 0],
-    [0, 2, 0, 0, 0, 0, 4, 4, 4, 2, 0, 2, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-    [1, 0, 2, 0, 1, 3, 2, 4, 4, 0, 1, 2, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 2, 0, 0],
-    [0, 1, 0, 0, 1, 1, 0, 4, 4, 2, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 2, 0, 0, 0, 1, 0, 1],
-    [0, 1, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 1, 2, 0, 1, 0, 1, 0, 0],
-    [0, 2, 0, 0, 2, 0, 1, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 1, 0, 0],
-    [0, 1, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0],
-    [0, 1, 2, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2, 0, 1, 0, 0, 0, 1, 2, 0, 0, 2, 0, 1, 0],
-    [0, 1, 0, 0, 1, 0, 2, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 1, 0, 2, 0, 0],
-    [3, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 2, 0, 1, 0, 1, 0, 0],
-    [0, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 2, 0, 1, 0, 0, 0, 0, 0, 1, 2, 1, 0, 0, 1, 0, 0],
-    [0, 1, 0, 0, 1, 0, 1, 0, 3, 0, 0, 4, 4, 2, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0],
-    [0, 0, 2, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 2, 0, 2, 0, 1, 0, 0],
-    [0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-    [1, 0, 2, 0, 1, 0, 2, 0, 0, 0, 1, 2, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 2, 0, 0],
-    [0, 1, 0, 0, 1, 1, 0, 0, 0, 2, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 2, 0, 0, 0, 1, 0, 1],
-    [0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 1, 0, 1, 0, 0, 2, 1, 0, 1, 0, 0, 0, 0, 0],
-    [0, 1, 2, 0, 0, 0, 1, 0, 4, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 1, 2, 0, 1, 0, 1, 0, 0],
-    [0, 2, 0, 0, 2, 0, 1, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 1, 0, 0],
-    [0, 1, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0],
-    [0, 1, 2, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2, 0, 1, 0, 0, 0, 1, 2, 0, 0, 2, 0, 1, 0],
-    [0, 1, 0, 0, 1, 0, 2, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 1, 0, 2, 0, 0]
-]
+var side = 6;
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
+var matrix = [];  
+function matrixCreat(x,y){
+     matrix = [];  
+    for(i =0; i<y;i++){
+        
+        arr = [];
+        for(c=0; c<=x; c++){
+            arr.push(getRandomInt(7));
+        }
+        matrix.push(arr);
+        
+    }
+    
+}
+matrixCreat(100,100);
+var FPS = 1;
+
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
 
 function setup() {
     noStroke();
-    frameRate(1);
+    frameRate(FPS);
     createCanvas(matrix[0].length * side, matrix.length * side); //կանվասի չափերը դնել մատրիցի չափերին համապատասխան
     background('#acacac');
 
@@ -127,3 +128,33 @@ function draw() {
         eaterdarkArr[i].eat();
     }
 }
+var btn1 = document.getElementById("btn1");
+clickCount = 0;
+
+btn1.addEventListener("click", () => {
+    btn1.innerText = "clicks:" + clickCount;
+    clickCount++;
+});
+var btn2 = document.getElementById("btn2");
+btn2.addEventListener("click", () => {
+    grassArr = [];
+    redgrassArr = [];
+    eatersArr = [];
+    eaterblueArr = [];
+    eaterredArr = [];
+    eaterdarkArr = [];
+    
+    matrixCreat(100,100);
+    setup();
+    draw();
+});
+var btn3 = document.getElementById("btn3");
+btn3.addEventListener("click", () => {
+    FPS++;
+    setup();
+});
+var btn4 = document.getElementById("btn4");
+btn4.addEventListener("click", () => {
+    FPS--;
+    setup();
+});
