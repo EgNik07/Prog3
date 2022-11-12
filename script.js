@@ -1,10 +1,12 @@
-var grassArr = [];
-var redgrassArr = [];
+var grassArr = []; //
+var redgrassArr = [];//
 var eatersArr = [];
-var eaterblueArr = [];
+var eaterblueArr = [];//
 var eaterredArr = [];
 var eaterdarkArr = [];
 var side = 6;
+var size_x = 200;
+var size_y = 100;
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
   }
@@ -22,7 +24,7 @@ function matrixCreat(x,y){
     }
     
 }
-matrixCreat(100,100);
+matrixCreat(size_x,size_y);
 var FPS = 1;
 
 function getRandomColor() {
@@ -37,7 +39,8 @@ function getRandomColor() {
 function setup() {
     noStroke();
     frameRate(FPS);
-    createCanvas(matrix[0].length * side, matrix.length * side); //կանվասի չափերը դնել մատրիցի չափերին համապատասխան
+    var myCanvas = createCanvas(matrix[0].length * side, matrix.length * side); //կանվասի չափերը դնել մատրիցի չափերին համապատասխան
+    myCanvas.parent("myCanvas");
     background('#acacac');
 
     for (var y = 0; y < matrix.length; y++) {
@@ -91,7 +94,7 @@ function draw() {
                 rect(j * side, i * side, side, side);
             }
             else if (matrix[i][j] == 0) {
-                fill('#acacac');
+                fill('grey');
                 rect(j * side, i * side, side, side);
             }
             else if (matrix[i][j] == 4) {
@@ -99,11 +102,11 @@ function draw() {
                 rect(j * side, i * side, side, side);
             }
             else if (matrix[i][j] == 5) {
-                fill('613a3a')
+                fill('613a3a');
                 rect(j * side, i * side, side, side);
             }
             else if (matrix[i][j] == 6) {
-                fill('pink')
+                fill('#FA9D15');
                 rect(j * side, i * side, side, side);
             }
         }
@@ -128,33 +131,3 @@ function draw() {
         eaterdarkArr[i].eat();
     }
 }
-var btn1 = document.getElementById("btn1");
-clickCount = 0;
-
-btn1.addEventListener("click", () => {
-    btn1.innerText = "clicks:" + clickCount;
-    clickCount++;
-});
-var btn2 = document.getElementById("btn2");
-btn2.addEventListener("click", () => {
-    grassArr = [];
-    redgrassArr = [];
-    eatersArr = [];
-    eaterblueArr = [];
-    eaterredArr = [];
-    eaterdarkArr = [];
-    
-    matrixCreat(100,100);
-    setup();
-    draw();
-});
-var btn3 = document.getElementById("btn3");
-btn3.addEventListener("click", () => {
-    FPS++;
-    setup();
-});
-var btn4 = document.getElementById("btn4");
-btn4.addEventListener("click", () => {
-    FPS--;
-    setup();
-});
