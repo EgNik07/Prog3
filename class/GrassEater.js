@@ -1,13 +1,47 @@
-class GrassEater extends Main{
- 
+
+ class GrassEater {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.multiply = 1;
+        this.energy = 5;
+        this.directions = [];
+        mullCount++;
+    }
+    updateCoordinates() {
+        this.directions = [
+            [this.x - 1, this.y - 1],
+            [this.x, this.y - 1],
+            [this.x + 1, this.y - 1],
+            [this.x - 1, this.y],
+            [this.x + 1, this.y],
+            [this.x - 1, this.y + 1],
+            [this.x, this.y + 1],
+            [this.x + 1, this.y + 1]
+        ];
+    }
+    chooseCell(character,matrix) {
+        this.updateCoordinates();
+        var found = [];
+        for (var i in this.directions) {
+            var x = this.directions[i][0];
+            var y = this.directions[i][1];
+            if (x >= 0 && x <  matrix[0].length && y >= 0 && y < matrix.length) {
+                if (matrix[y][x] == character) {
+                    found.push(this.directions[i]);
+                }
+            }
+        }
+        return found;
+    }
 
 
 
     //move() շարժվել
-    move() {
+    move(matrix) {
         //որոնում է դատարկ տարածքներ
-        var emptyCells = this.chooseCell(0);
-        var cօord = random(emptyCells); // 4,3
+        var emptyCells = this.chooseCell(0,matrix);
+        var cօord = emptyCells[Math.floor(Math.random() * 1)]; // 4,3
 
         if (cօord) {
             var x = cօord[0];
@@ -26,10 +60,10 @@ class GrassEater extends Main{
 
 
     //eat()-ուտել
-    eat() {
+    eat(matrix,eatersArr,grassArr) {
         //հետազոտում է շրջակայքը, որոնում է սնունդ
-        var grassCells = this.chooseCell(1);
-        var coord = random(grassCells);
+        var grassCells = this.chooseCell(1,matrix);
+        var coord = grassCells[Math.floor(Math.random() * 1)];
 
         //եթե կա հարմար սնունդ
         if (coord) {
@@ -50,8 +84,6 @@ class GrassEater extends Main{
 
             //մեծացնում է էներգիան
             this.energy++;
-
-            // սննդի զանգվածից ջնջում է կերված սնունդը
             for (var i in grassArr) {
                 if (x == grassArr[i].x && y == grassArr[i].y) {
                     grassArr.splice(i, 1);
@@ -60,7 +92,7 @@ class GrassEater extends Main{
 
             //եթե պատրաստ է բազմացմանը, բազմանում է 
             if (this.multiply == 10) {
-                this.mul()
+                this.mul(matrix,eatersArr);
                 this.multiply = 0;
             }
 
@@ -76,9 +108,9 @@ class GrassEater extends Main{
     }
 
     //mul() բազմանալ
-    mul() {
+    mul(matrix,eatersArr) {
         //փնտրում է դատարկ տարածք
-        var emptyCells = this.chooseCell(0);
+        var emptyCells = this.chooseCell(0, matrix);
         var coord = random(emptyCells);
 
         //եթե կա բազմանում է
@@ -113,3 +145,4 @@ class GrassEater extends Main{
     }
 
 }
+module.exports = GrassEater;

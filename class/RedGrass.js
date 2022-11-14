@@ -1,4 +1,4 @@
-class RedGrass {
+ class RedGrass {
     constructor(x, y) {
         this.x = x;
         this.y = y;
@@ -16,7 +16,7 @@ class RedGrass {
         mullCount++;
 
     }
-    chooseCell(character) {
+    chooseCell(character,matrix) {
         var found = [];
         for (var i in this.directions) {
             var x = this.directions[i][0];
@@ -32,12 +32,12 @@ class RedGrass {
 
 
     //mul() բազմացում
-    mul() {
+    mul(matrix,redgrassArr) {
         this.multiply++;
         if (this.multiply >= 0) {
             //հետազոտում է շրջապատը, որոնում դատարկ տարածքներ
-            var emptyCells = this.chooseCell(2);
-            var coord = random(emptyCells);
+            var emptyCells = this.chooseCell(2,matrix);
+            var coord = emptyCells[Math.floor(Math.random() * 1)];
             if (coord) {
                 var x = coord[0];
                 var y = coord[1];
@@ -53,3 +53,4 @@ class RedGrass {
         }
     }
 }
+module.exports = RedGrass;

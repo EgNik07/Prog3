@@ -1,3 +1,5 @@
+var Main = require("./Main.js")
+
 class Eaterblue extends Main {
 
 
@@ -84,3 +86,4 @@ class Eaterblue extends Main {
 
 
 }
+module.exports = Eaterblue;

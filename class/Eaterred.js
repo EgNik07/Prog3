@@ -1,4 +1,5 @@
-class Eaterred extends Main {
+var Main = require("./Main.js")
+ class Eaterred extends Main {
   
 
 
@@ -101,3 +102,4 @@ class Eaterred extends Main {
 
 
 }
+module.exports = Eaterred;

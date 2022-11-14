@@ -16,7 +16,7 @@ class Grass {
         mullCount++;
 
     }
-    chooseCell(character) {
+    chooseCell(character,matrix) {
         var found = [];
         for (var i in this.directions) {
             var x = this.directions[i][0];
@@ -32,11 +32,12 @@ class Grass {
 
 
     
-    mul() {
+    mul(matrix,grassArr) {
         this.multiply++;
         if (this.multiply >= 0) {
-            var emptyCells = this.chooseCell(0);
-            var coord = random(emptyCells);
+            
+            var emptyCells = this.chooseCell(0,matrix);
+            var coord = emptyCells[Math.floor(Math.random() * 1)];
             if (coord) {
                 var x = coord[0];
                 var y = coord[1];
@@ -52,3 +53,5 @@ class Grass {
         }
     }
 }
+
+module.exports = Grass;

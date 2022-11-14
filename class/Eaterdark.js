@@ -1,4 +1,5 @@
-class Eaterdark extends Main {
+var Main = require("./Main.js")
+ class Eaterdark extends Main {
  
 
 
@@ -101,3 +102,4 @@ class Eaterdark extends Main {
 
 
 }
+module.exports = Eaterdark;
