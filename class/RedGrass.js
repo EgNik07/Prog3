@@ -36,8 +36,8 @@
         this.multiply++;
         if (this.multiply >= 0) {
             //հետազոտում է շրջապատը, որոնում դատարկ տարածքներ
-            var emptyCells = this.chooseCell(2,matrix);
-            var coord = emptyCells[Math.floor(Math.random() * 1)];
+            var emptyCells = this.chooseCell(0,matrix);
+            var coord = emptyCells[Math.floor(Math.random() * emptyCells.length)];
             if (coord) {
                 var x = coord[0];
                 var y = coord[1];

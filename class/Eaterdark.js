@@ -4,10 +4,10 @@ var Main = require("./Main.js")
 
 
     //move() շարժվել
-    move() {
+    move(matrix) {
         //որոնում է դատարկ տարածքներ
         var emptyCells = this.chooseCell(0);
-        var cօord = random(emptyCells); // 4,3
+        var cօord =emptyCells[Math.floor(Math.random() * emptyCells.length)]; // 4,3
 
         if (cօord) {
             var x = cօord[0];
@@ -29,10 +29,10 @@ var Main = require("./Main.js")
 
 
     //eat()-ուտել
-    eat() {
+    eat(matrix) {
         //հետազոտում է շրջակայքը, որոնում է սնունդ
         var grassCells = this.chooseCell(1);
-        var coord = random(grassCells);
+        var coord = grassCells[Math.floor(Math.random() * grassCells.length)];
 
         //եթե կա հարմար սնունդ
         if (coord) {
@@ -63,7 +63,7 @@ var Main = require("./Main.js")
 
             //եթե պատրաստ է բազմացմանը, բազմանում է 
             if (this.multiply == 4) {
-                this.mul()
+                this.mul(matrix)
                 this.multiply = 0;
             }
 

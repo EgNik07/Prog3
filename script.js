@@ -1,4 +1,4 @@
-var side = 6;
+var side = 10;
 
 
 var end = 10;
@@ -24,7 +24,7 @@ socket.on("data", function(data){
     
     
     matrix=data[0];
-    console.log(matrix);
+    //console.log(matrix);
     dataTrue =true;
     grassArr = data[1]; //
     redgrassArr = data[2];//
@@ -70,7 +70,7 @@ function setup() {
 
 function draw() {
     if(dataTrue){
-        console.log(dataTrue);
+        //console.log(dataTrue);
         dataTrue =false;
     background('#acacac');
     lifeCount=0;

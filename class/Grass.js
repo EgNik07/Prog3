@@ -34,10 +34,10 @@ class Grass {
     
     mul(matrix,grassArr) {
         this.multiply++;
-        if (this.multiply >= 0) {
+        if (this.multiply >= 1) {
             
             var emptyCells = this.chooseCell(0,matrix);
-            var coord = emptyCells[Math.floor(Math.random() * 1)];
+            var coord = emptyCells[Math.floor(Math.random() * emptyCells.length)];
             if (coord) {
                 var x = coord[0];
                 var y = coord[1];

@@ -7,22 +7,11 @@ btn1.addEventListener("click", () => {
 });
 var btn2 = document.getElementById("btn2");
 btn2.addEventListener("click", () => {
-    grassArr = [];
-    redgrassArr = [];
-    eatersArr = [];
-    eaterblueArr = [];
-    eaterredArr = [];
-    eaterdarkArr = [];
-    
-    matrixCreat(size_x,size_y);
-    setup();
-    draw();
+io.emit("restart","restart");
 });
 var btn3 = document.getElementById("btn3");
 btn3.addEventListener("click", () => {
     FPS--;
-    setup();
-    draw();
 });
 var btn4 = document.getElementById("btn4");
 btn4.addEventListener("click", () => {

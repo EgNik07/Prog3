@@ -1,47 +1,10 @@
-
- class GrassEater {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.multiply = 1;
-        this.energy = 5;
-        this.directions = [];
-        mullCount++;
-    }
-    updateCoordinates() {
-        this.directions = [
-            [this.x - 1, this.y - 1],
-            [this.x, this.y - 1],
-            [this.x + 1, this.y - 1],
-            [this.x - 1, this.y],
-            [this.x + 1, this.y],
-            [this.x - 1, this.y + 1],
-            [this.x, this.y + 1],
-            [this.x + 1, this.y + 1]
-        ];
-    }
-    chooseCell(character,matrix) {
-        this.updateCoordinates();
-        var found = [];
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x <  matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == character) {
-                    found.push(this.directions[i]);
-                }
-            }
-        }
-        return found;
-    }
-
-
-
+var Main = require("./Main.js");
+class GrassEater extends Main  {
     //move() շարժվել
     move(matrix) {
         //որոնում է դատարկ տարածքներ
         var emptyCells = this.chooseCell(0,matrix);
-        var cօord = emptyCells[Math.floor(Math.random() * 1)]; // 4,3
+        var cօord = emptyCells[Math.floor(Math.random() * emptyCells.length)]; // 4,3
 
         if (cօord) {
             var x = cօord[0];
@@ -61,9 +24,10 @@
 
     //eat()-ուտել
     eat(matrix,eatersArr,grassArr) {
+      
         //հետազոտում է շրջակայքը, որոնում է սնունդ
         var grassCells = this.chooseCell(1,matrix);
-        var coord = grassCells[Math.floor(Math.random() * 1)];
+        var coord = grassCells[Math.floor(Math.random() * grassCells.length)];
 
         //եթե կա հարմար սնունդ
         if (coord) {
@@ -91,27 +55,28 @@
             }
 
             //եթե պատրաստ է բազմացմանը, բազմանում է 
-            if (this.multiply == 10) {
+            if (this.multiply == 3) {
                 this.mul(matrix,eatersArr);
-                this.multiply = 0;
+                this.multiply = 1;
             }
 
 
         } else {
             //եթե չկա հարմար սնունդ 
-            this.move();
+            this.move(matrix);
             this.energy--;
             if (this.energy <= 0) { //մահանում է, եթե էներգիան 0֊ից ցածր է
                 this.die();
             }
         }
     }
+    
 
     //mul() բազմանալ
     mul(matrix,eatersArr) {
         //փնտրում է դատարկ տարածք
         var emptyCells = this.chooseCell(0, matrix);
-        var coord = random(emptyCells);
+        var coord = emptyCells[Math.floor(Math.random() * emptyCells.length)];
 
         //եթե կա բազմանում է
         if (coord) {
@@ -127,13 +92,13 @@
             matrix[y][x] = 2;
         }
         else {
-            this.die()
+            this.die(matrix)
         }
     }
 
     //die() մահանալ
-    die() {
-        //Հիմնական մատրիցում իր դիրքում դնում է դատարկություն
+    die(matrix) {
+        if(matrix != undefined){
         matrix[this.y][this.x] = 0;
 
         //ջնջում է ինքն իրեն խոտակերների զանգվածից
@@ -142,6 +107,7 @@
                 eatersArr.splice(i, 1);
             }
         }
+    }
     }
 
 }

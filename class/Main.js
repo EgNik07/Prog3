@@ -2,6 +2,8 @@ dieCount = 0;
 lifeCount = 0;
 mullCount =0;
 moveCount = 0;
+maleCount =0;
+gerlCount =0;
 class Main{
     constructor(x, y) {
         this.x = x;
@@ -10,6 +12,14 @@ class Main{
         this.energy = 5;
         this.directions = [];
         mullCount++;
+        if(Math.floor(Math.random() * 2) == 1){
+            this.gender= "Male";
+            maleCount++;
+        }
+        else{
+            this.gender= "Gerl";
+            gerlCount++;
+        }
     }
     updateCoordinates() {
         this.directions = [
@@ -23,9 +33,10 @@ class Main{
             [this.x + 1, this.y + 1]
         ];
     }
-    chooseCell(character) {
+    chooseCell(character, matrix ) {
         this.updateCoordinates();
         var found = [];
+        if(matrix != undefined){
         for (var i in this.directions) {
             var x = this.directions[i][0];
             var y = this.directions[i][1];
@@ -35,6 +46,7 @@ class Main{
                 }
             }
         }
+    }
         return found;
     }
 

@@ -2,11 +2,30 @@ var Main = require("./Main.js")
 
 class Eaterblue extends Main {
 
+    move(matrix) {
+        //որոնում է դատարկ տարածքներ
+        var emptyCells = this.chooseCell(0,matrix);
+        var cօord = emptyCells[Math.floor(Math.random() * emptyCells.length)]; // 4,3
 
-    eat() {
+        if (cօord) {
+            var x = cօord[0];
+            var y = cօord[1];
+            var x = cօord[4];
+            var x = cօord[3]
+            //շարժվում է
+            matrix[y][x] = 2;
+            matrix[this.y][this.x] = 0;
+
+            //նոր կորդինատներ է ստանում
+            this.x = x;
+            this.y = y;
+        }
+    }
+
+    eat(matrix) {
 
         var grassCells = this.chooseCell(1);
-        var coord = random(grassCells);
+        var coord = grassCells[Math.floor(Math.random() * grassCells.length)];
 
         if (coord) {
             var x = coord[0];
@@ -35,23 +54,23 @@ class Eaterblue extends Main {
 
             //եթե պատրաստ է բազմացմանը, բազմանում է 
             if (this.multiply == 5) {
-                this.mul()
+                this.mul(matrix)
                 this.multiply = 0;
             }
 
 
         } else {
             //եթե չկա հարմար սնունդ 
-            this.move();
+            this.move(matrix);
             this.energy--;
             if (this.energy <= 0) { //մահանում է, եթե էներգիան 0֊ից ցածր է
-                this.die();
+                this.die(matrix);
             }
         }
     }
 
     //mul() բազմանալ
-    mul() {
+    mul(matrix,eaterblueArr) {
         //փնտրում է դատարկ տարածք
         var emptyCells = this.chooseCell(0);
         var coord = random(emptyCells);
@@ -72,7 +91,7 @@ class Eaterblue extends Main {
     }
 
     //die() մահանալ
-    die() {
+    die(matrix, eaterblueArr) {
         //Հիմնական մատրիցում իր դիրքում դնում է դատարկություն
         matrix[this.y][this.x] = 0;
 

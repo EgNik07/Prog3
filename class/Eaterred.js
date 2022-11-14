@@ -4,10 +4,10 @@ var Main = require("./Main.js")
 
 
     //move() շարժվել
-    move() {
+    move(matrix) {
         //որոնում է դատարկ տարածքներ
         var emptyCells = this.chooseCell(0);
-        var cօord = random(emptyCells); // 4,3
+        var cօord = emptyCells[Math.floor(Math.random() * emptyCells.length)]; // 4,3
 
         if (cօord) {
             var x = cօord[0];
@@ -26,10 +26,10 @@ var Main = require("./Main.js")
 
 
     //eat()-ուտել
-    eat() {
+    eat(matrix,eaterredArr,eaterblueArr) {
         //հետազոտում է շրջակայքը, որոնում է սնունդ
         var grassCells = this.chooseCell(1);
-        var coord = random(grassCells);
+        var coord = grassCells[Math.floor(Math.random() * grassCells.length)];
 
         //եթե կա հարմար սնունդ
         if (coord) {
@@ -54,7 +54,7 @@ var Main = require("./Main.js")
             // սննդի զանգվածից ջնջում է կերված սնունդը
             for (var i in eaterblueArr) {
                 if (x == eaterblueArr[i].x && y == eaterblueArr[i].y) {
-                    eaterblueArr.splice(i, 1);
+                    eaterblueArr.splice(i, 0);
                 }
             }
 
@@ -76,10 +76,10 @@ var Main = require("./Main.js")
     }
 
     //mul() բազմանալ
-    mul() {
+    mul(matrix, eaterredArr) {
         //փնտրում է դատարկ տարածք
-        var emptyCells = this.chooseCell(0);
-        var coord = random(emptyCells);
+        var emptyCells = this.chooseCell(0,matrix);
+        var coord = emptyCells[Math.floor(Math.random() * emptyCells.length)];
 
         //եթե կա բազմանում է
         if (coord) {

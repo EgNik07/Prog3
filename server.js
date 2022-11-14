@@ -6,8 +6,10 @@ var io = require('socket.io')(server);
 
 var port = 3000;
 
+var FPS = 500;
 
-
+var matrix_sizeX =50;
+var matrix_sizeY =50;
 
 var grassArr = []; //
 var redgrassArr = [];//
@@ -15,23 +17,36 @@ var eatersArr = [];
 var eaterblueArr = [];//
 var eaterredArr = [];
 var eaterdarkArr = [];
+
+var oldMaximum = 10;
+var global_gamesCount = 0;
+var gamesCount = 0;
+var oldCount;
 //var fs = require("fs");
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
   }
 
-function matrixCreat(x,y){
+function matrixCreat(x =matrix_sizeX,y=matrix_sizeY){
+    
+    grassArr = []; //
+    redgrassArr = [];//
+    eatersArr = [];
+    eaterblueArr = [];//
+    eaterredArr = [];
+    eaterdarkArr = [];
     matrix = []; 
     for(i =0; i<y;i++){
         
         arr = [];
         for(c=0; c<=x; c++){
-            arr.push(getRandomInt(7));
+            arr.push(getRandomInt(3));
         }
         matrix.push(arr);
         
     }
+    gamesCount++;
     
 }
 
@@ -44,7 +59,7 @@ app.get("/", function(req, res){
 
 });
 var matrix = [];  
-matrixCreat(10,10);
+
 
 var Grass = require("./class/Grass");
 var RedGrass = require("./class/RedGrass");
@@ -52,8 +67,29 @@ var Eaterblue = require("./class/Eaterblue");
 var GrassEater = require("./class/GrassEater");
 var Eaterdark = require("./class/Eaterdark");
 var Eaterred = require("./class/Eaterred");
-
+var startGame = true;
+var oldCountMax =0;
 function GAME() {
+    console.log(gamesCount+":"+dieCount,lifeCount,mullCount,moveCount);
+    if( oldCount ==dieCount+lifeCount+mullCount+moveCount){
+        oldCountMax++;
+        if(oldCountMax==oldMaximum){
+            startGame =true;
+            oldCountMax =0;
+            oldCount =0;
+        }
+        
+
+    }
+    else{
+        oldCount =dieCount+lifeCount+mullCount+moveCount;
+    }
+    io.on("restart", function(dt){
+        startGame=true;
+        console.log(dt);
+    });
+    if(startGame){
+    matrixCreat();
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
 
@@ -86,21 +122,26 @@ function GAME() {
 
         }
     }
-    
+    startGame = false;
+}
     data = [matrix,grassArr,redgrassArr,eatersArr,
         eaterblueArr,eaterredArr,eaterdarkArr];
     io.emit("data",data);
+if(matrix != undefined){
     for (var i in grassArr) {
         grassArr[i].mul(matrix,grassArr);
         
     }
     for (var i in redgrassArr) {
+        
         redgrassArr[i].mul(matrix,redgrassArr);
     }
 
     for (var i in eatersArr) {
+        
         eatersArr[i].eat(matrix,eatersArr,grassArr);
     }
+   
     for (var i in eaterblueArr) {
         eaterblueArr[i].eat(matrix,eaterblueArr);
     }
@@ -110,6 +151,7 @@ function GAME() {
     for (var i in eaterdarkArr) {
         eaterdarkArr[i].eat(matrix,eaterdarkArr);
     }
+}
     
     
     //endc = 0;
@@ -144,4 +186,5 @@ server.listen(port, function(){
 console.log("Example is running on port "+ port);
 
 });
-setInterval(GAME,1000);
+
+setInterval(GAME,FPS);
