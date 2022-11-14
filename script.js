@@ -4,13 +4,29 @@ var eatersArr = [];
 var eaterblueArr = [];//
 var eaterredArr = [];
 var eaterdarkArr = [];
+
 var side = 6;
-var size_x = 200;
-var size_y = 100;
+var size_x = 30;
+var size_y = 30;
+
+var end = 10;
+var old = 0;
+var endc = 0;
+
+var games = 0;
+var FPS = 10;
+var socket = io();
+var matrix ;
+socket.on("data", function(data){
+    console.log(data);
+    matrix =data; 
+});
+
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
   }
-var matrix = [];  
+
+console.log(data); 
 function matrixCreat(x,y){
      matrix = [];  
     for(i =0; i<y;i++){
@@ -24,8 +40,8 @@ function matrixCreat(x,y){
     }
     
 }
-matrixCreat(size_x,size_y);
-var FPS = 1;
+
+
 
 function getRandomColor() {
     var letters = '0123456789ABCDEF';
@@ -37,6 +53,7 @@ function getRandomColor() {
 }
 
 function setup() {
+    games++;
     noStroke();
     frameRate(FPS);
     var myCanvas = createCanvas(matrix[0].length * side, matrix.length * side); //կանվասի չափերը դնել մատրիցի չափերին համապատասխան
@@ -75,15 +92,20 @@ function setup() {
 
         }
     }
+    endc = 0;
+    
 }
 
 function draw() {
     background('#acacac');
+    lifeCount=0;
     for (var i = 0; i < matrix.length; i++) {
         for (var j = 0; j < matrix[i].length; j++) {
+            lifeCount++;
             if (matrix[i][j] == 1) {
                 fill("green");
                 rect(j * side, i * side, side, side);
+
             }
             else if (matrix[i][j] == 3) {
                 fill("blue");
@@ -94,6 +116,7 @@ function draw() {
                 rect(j * side, i * side, side, side);
             }
             else if (matrix[i][j] == 0) {
+                lifeCount--;
                 fill('grey');
                 rect(j * side, i * side, side, side);
             }
@@ -113,6 +136,7 @@ function draw() {
     }
     for (var i in grassArr) {
         grassArr[i].mul();
+        
     }
     for (var i in redgrassArr) {
         redgrassArr[i].mul();
@@ -130,4 +154,30 @@ function draw() {
     for (var i in eaterdarkArr) {
         eaterdarkArr[i].eat();
     }
+    //console.log(dieCount +"_"+dieCount+"_"+mullCount+"_"+games+"_"+moveCount);
+    gamesC.innerText = "games:" + games;
+    dieC.innerText = "dieCount:" + dieCount;
+    lifeC.innerText = "lifeCount:" + lifeCount;
+    mullC.innerText = "mullCount:" + mullCount;
+    moveC.innerText = "moveCount:" + moveCount;
+   
+    newc =dieCount+dieCount+mullCount+moveCount;
+    if(old == newc){
+        endc++;
+        if(end == endc){
+            dieCount = 0;
+            lifeCount = 0;
+            mullCount =0;
+            moveCount = 0;
+            matrixCreat(size_x,size_y);
+            setup();
+            draw();
+        }
+    }
+    else{
+        old = dieCount+dieCount+mullCount+moveCount;
+    }
+    
+    
+    
 }

@@ -13,6 +13,7 @@ class Grass {
             [this.x, this.y + 1],
             [this.x + 1, this.y + 1]
         ];
+        mullCount++;
 
     }
     chooseCell(character) {

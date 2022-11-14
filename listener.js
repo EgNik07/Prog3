@@ -123,7 +123,7 @@ btn10.addEventListener("click", () => {
 var btn11 = document.getElementById("btn10");
 btn11.addEventListener("click", () => {
     
-    redgrassArr = [];
+    eaterdarkArr = [];
     
    for(i =0; i<matrix.length;i++){
        
@@ -135,3 +135,81 @@ btn11.addEventListener("click", () => {
            }   
          }
 });
+var sideP = document.getElementById("sideP");
+sideP.addEventListener("click", () => {
+    side++;
+    setup();
+    draw();
+   
+});
+var sideM = document.getElementById("sideM");
+sideM.addEventListener("click", () => {
+    side--;
+    setup();
+    draw();
+   
+});
+var sizeP_x = document.getElementById("sizeP_x");
+sizeP_x.addEventListener("click", () => {
+    size_x++;
+    grassArr = []; //
+     redgrassArr = [];//
+     eatersArr = [];
+     eaterblueArr = [];//
+     eaterredArr = [];
+     eaterdarkArr = [];
+    matrixCreat(size_x,size_y);
+    setup();
+    draw();
+    console.log( size_x);
+   
+});
+var sizeM_x = document.getElementById("sizeM_x");
+sizeM_x.addEventListener("click", () => {
+    size_x--;
+    grassArr = []; //
+     redgrassArr = [];//
+     eatersArr = [];
+     eaterblueArr = [];//
+     eaterredArr = [];
+     eaterdarkArr = [];
+    matrixCreat(size_x,size_y);
+    setup();
+    draw();
+   
+});
+var sizeP_y = document.getElementById("sizeP_y");
+sizeP_y.addEventListener("click", () => {
+    size_y++;
+     grassArr = []; //
+     redgrassArr = [];//
+     eatersArr = [];
+     eaterblueArr = [];//
+     eaterredArr = [];
+     eaterdarkArr = [];
+    matrixCreat(size_x,size_y);
+    setup();
+    draw();
+   
+});
+var sizeM_y = document.getElementById("sizeM_y");
+sizeM_y.addEventListener("click", () => {
+    size_y--;
+    grassArr = []; //
+    redgrassArr = [];//
+    eatersArr = [];
+    eaterblueArr = [];//
+    eaterredArr = [];
+    eaterdarkArr = [];
+    matrixCreat(size_x,size_y);
+    setup();
+    draw();
+   
+});
+
+// Countsssss
+var gamesC = document.getElementById("games");
+var dieC = document.getElementById("dieCount");
+var lifeC = document.getElementById("lifeCount");
+var mullC = document.getElementById("mullCount");
+var moveC = document.getElementById("moveCount");

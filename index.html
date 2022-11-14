@@ -4,6 +4,8 @@
     <meta charset="utf8">
     <script src="p5.js"></script>
     
+    <script src="/socket.io/socket.io.js"></script>
+
     <script src="MainClass.js"></script>
 
     <script src="class/Eaterblue.js"></script>
@@ -29,6 +31,14 @@
         <button id="btn2"class="btn">Restart</button>
         <button id="btn3"class="btn">fps-1<<</button>
         <button id="btn4"class="btn">>>fps+1</button>
+        <button id="sideM"class="btn">side-1<<</button>
+        <button id="sideP"class="btn">>>side+1</button>
+
+        <button id="sizeM_x"class="btn">size_x-1<<</button>
+        <button id="sizeP_x"class="btn">>>size_x+1</button>
+
+        <button id="sizeM_y"class="btn">size_y-1<<</button>
+        <button id="sizeP_y"class="btn">>>size_y+1</button>
     </div>
     <div class="btns-half">
         <button id="btn5"class="btn">delete all</button>
@@ -41,10 +51,23 @@
     </div>
  
 </div>
-<div class="myCanvas">
-<div  id="myCanvas"></div>
-</div>
-</div>
+
+    <div class="content1">
+       
+        <div class="myCanvas"><div  id="myCanvas"></div></div>
+        <div class="tableCount">
+            <div id="games" class="count">games:0</div>
+            <hr>
+            <div id="dieCount" class="count">dieCount:0</div>
+            <div id="lifeCount" class="count">lifeCount:0</div>
+            <div id="mullCount" class="count">mullCount:0</div>
+            <div id="moveCount" class="count">moveCount:0</div>
+            
+        </div>
+    </div>
+   
+
+</div><!-- end -->
 </body>
 <script src="script.js"></script>
 <script src="listener.js"></script>

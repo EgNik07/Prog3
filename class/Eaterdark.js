@@ -77,25 +77,21 @@ class Eaterdark extends Main {
         }
     }
 
-    //mul() բազմանալ
     mul() {
-        //փնտրում է դատարկ տարածք
+        
         var emptyCells = this.chooseCell(0);
         var coord = random(emptyCells);
 
-        //եթե կա բազմանում է
         if (coord) {
             var x = coord[0];
             var y = coord[1];
-            // this.multiply++;
-            //ստեղծում է նոր օբյեկտ (այստեղ խոտակեր) 
-            //և տեղադրում է այն խոտակերների զանգվածի մեջ
+          
             var newEater = new Eaterred(x, y);
-            eaterredArr.push(newEater);
+            eatersArr.push(newEater);
 
-            //հիմնական matrix-ում կատարում է գրառում նոր խոտի մասին
+           
             matrix[y][x] = 5;
-            
+            dieCount++;            
         }
         else {
             this.move()

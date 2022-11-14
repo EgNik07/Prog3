@@ -1,3 +1,7 @@
+dieCount = 0;
+lifeCount = 0;
+mullCount =0;
+moveCount = 0;
 class Main{
     constructor(x, y) {
         this.x = x;
@@ -5,6 +9,7 @@ class Main{
         this.multiply = 1;
         this.energy = 5;
         this.directions = [];
+        mullCount++;
     }
     updateCoordinates() {
         this.directions = [
@@ -34,7 +39,7 @@ class Main{
     }
 
     move() {
-        //որոնում է դատարկ տարածքներ
+        
         var emptyCells = this.chooseCell(0);
         var cօord = random(emptyCells); // 4,3
 
@@ -49,6 +54,7 @@ class Main{
             //նոր կորդինատներ է ստանում
             this.x = x;
             this.y = y;
+            moveCount++;
         }
     }
 }
