@@ -51,6 +51,9 @@ function getRandomColor() {
     }
     return color;
 }
+function createMob(){
+    console.log(MouseEvent);
+}
 
 function setup() {
     games++;
@@ -58,6 +61,7 @@ function setup() {
     frameRate(FPS);
     var myCanvas = createCanvas(matrix[0].length * side, matrix.length * side); //կանվասի չափերը դնել մատրիցի չափերին համապատասխան
     myCanvas.parent("myCanvas");
+    myCanvas.mouseClicked(createMob);
     background('#acacac');
 
     for (var y = 0; y < matrix.length; y++) {
