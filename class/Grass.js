@@ -14,6 +14,8 @@ class Grass {
             [this.x + 1, this.y + 1]
         ];
         mullCount++;
+        grassCount++;
+        lifeCount++;
 
     }
     chooseCell(character,matrix) {

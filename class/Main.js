@@ -4,6 +4,7 @@ mullCount =0;
 moveCount = 0;
 maleCount =0;
 gerlCount =0;
+grassCount =0;
 class Main{
     constructor(x, y) {
         this.x = x;
@@ -12,14 +13,9 @@ class Main{
         this.energy = 5;
         this.directions = [];
         mullCount++;
-        if(Math.floor(Math.random() * 2) == 1){
-            this.gender= "Male";
-            maleCount++;
-        }
-        else{
-            this.gender= "Gerl";
-            gerlCount++;
-        }
+        lifeCount++;
+        this.age = 0;
+    
     }
     updateCoordinates() {
         this.directions = [

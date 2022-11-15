@@ -70,7 +70,8 @@ var Eaterred = require("./class/Eaterred");
 var startGame = true;
 var oldCountMax =0;
 function GAME() {
-    console.log(gamesCount+":"+dieCount,lifeCount,mullCount,moveCount);
+    //console.log(eatersArr);
+    console.log(gamesCount+":"+dieCount,lifeCount,mullCount,moveCount+": Male "+maleCount+" Gerl:"+gerlCount +" Grass:"+grassCount);
     if( oldCount ==dieCount+lifeCount+mullCount+moveCount){
         oldCountMax++;
         if(oldCountMax==oldMaximum){
@@ -99,7 +100,13 @@ function GAME() {
             }
 
             else if (matrix[y][x] == 2) {
-                var eater = new GrassEater(x, y);
+                if( Math.floor(Math.random() * 2)==1){
+                    var eater = new GrassEater(x, y,1);
+                }
+                else{
+                    var eater = new GrassEater(x, y,0);
+                }
+                
                 eatersArr.push(eater);
             }
             else if (matrix[y][x] == 3) {
@@ -170,7 +177,7 @@ app.use(express.static('./'));
 
 io.on('connection', function(socket){
     console.log("connect");
-    
+    setInterval(GAME,FPS);
     io.on('disconnect', (res,req) => {
        res.send('disconnected');
        console.log('disconnected');
@@ -187,4 +194,3 @@ console.log("Example is running on port "+ port);
 
 });
 
-setInterval(GAME,FPS);

@@ -32,6 +32,7 @@ socket.on("data", function(data){
     eaterblueArr = data[4];//
     eaterredArr = data[5];
     eaterdarkArr = data[6];
+    //console.log(data[3]);
     setup();
     draw();
 });
@@ -89,9 +90,24 @@ function draw() {
                 rect(j * side, i * side, side, side);
             }
             else if (matrix[i][j] == 2) {
-                fill("yellow");
+               
+                //for(var i=0; i< eatersArr[0].length;i++){
+            
+                
+                    if(eatersArr[1].age <=12){
+                        fill("#fad415");
+                    }
+                    else if(eatersArr[1].age <=18){
+                        fill("##fae715");
+                    }
+                    else{
+                        fill("yellow");
+                    }
+                //}
+                
                 rect(j * side, i * side, side, side);
-            }
+            
+        }
             else if (matrix[i][j] == 0) {
                 lifeCount--;
                 fill('grey');

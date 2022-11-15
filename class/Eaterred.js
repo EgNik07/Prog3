@@ -6,7 +6,7 @@ var Main = require("./Main.js")
     //move() շարժվել
     move(matrix) {
         //որոնում է դատարկ տարածքներ
-        var emptyCells = this.chooseCell(0);
+        var emptyCells = this.chooseCell(0,matrix);
         var cօord = emptyCells[Math.floor(Math.random() * emptyCells.length)]; // 4,3
 
         if (cօord) {
@@ -28,7 +28,7 @@ var Main = require("./Main.js")
     //eat()-ուտել
     eat(matrix,eaterredArr,eaterblueArr) {
         //հետազոտում է շրջակայքը, որոնում է սնունդ
-        var grassCells = this.chooseCell(1);
+        var grassCells = this.chooseCell(1,matrix);
         var coord = grassCells[Math.floor(Math.random() * grassCells.length)];
 
         //եթե կա հարմար սնունդ
@@ -45,29 +45,29 @@ var Main = require("./Main.js")
             this.x = x;
             this.y = y;
 
-            //բազմացման գործակիցը մեծացնում է
+
             this.multiply++;
 
-            //մեծացնում է էներգիան
+
             this.energy++;
 
-            // սննդի զանգվածից ջնջում է կերված սնունդը
+        
             for (var i in eaterblueArr) {
                 if (x == eaterblueArr[i].x && y == eaterblueArr[i].y) {
                     eaterblueArr.splice(i, 0);
                 }
             }
 
-            //եթե պատրաստ է բազմացմանը, բազմանում է 
+         
             if (this.multiply == 10) {
-                this.mul()
+                this.mul(matrix,eaterredArr)
                 this.multiply = 0;
             }
 
 
         } else {
             //եթե չկա հարմար սնունդ 
-            this.move();
+            this.move(matrix);
             this.energy--;
             if (this.energy <= 0) { //մահանում է, եթե էներգիան 0֊ից ցածր է
                 this.energy++
@@ -81,17 +81,14 @@ var Main = require("./Main.js")
         var emptyCells = this.chooseCell(0,matrix);
         var coord = emptyCells[Math.floor(Math.random() * emptyCells.length)];
 
-        //եթե կա բազմանում է
+
         if (coord) {
             var x = coord[0];
             var y = coord[1];
-            // this.multiply++;
-            //ստեղծում է նոր օբյեկտ (այստեղ խոտակեր) 
-            //և տեղադրում է այն խոտակերների զանգվածի մեջ
+
             var newEater = new Eaterred(x, y);
             eaterredArr.push(newEater);
 
-            //հիմնական matrix-ում կատարում է գրառում նոր խոտի մասին
             matrix[y][x] = 2;
         }
         else {
