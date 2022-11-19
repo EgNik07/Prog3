@@ -6,7 +6,7 @@ var old = 0;
 var endc = 0;
 
 var games = 0;
-var FPS = 10;
+var FPS = 1;
 var socket = io();
 var matrix;
 var dataTrue;
@@ -33,6 +33,22 @@ socket.on("data", function(data){
     eaterredArr = data[5];
     eaterdarkArr = data[6];
     //console.log(data[3]);
+    info = data[7];
+    games = info[0];
+    dieCount = info[1];
+    lifeCount = info[2];
+    mullCount = info[3];
+    moveCount = info[4];
+    maleCount = info[5];
+    gerlCount = info[6];
+    grassCount = info[7];
+    gamesC.innerText = "games:" + games;
+    dieC.innerText = "dieCount:" + dieCount;
+    lifeC.innerText = "lifeCount:" + lifeCount;
+    mullC.innerText = "mullCount:" + mullCount;
+    moveC.innerText = "moveCount:" + moveCount;
+    girlsC.innerText = "Girls:" + gerlCount;
+    mansC.innerText = "Mans:" + maleCount;
     setup();
     draw();
 });
@@ -90,21 +106,22 @@ function draw() {
                 rect(j * side, i * side, side, side);
             }
             else if (matrix[i][j] == 2) {
-               
-                //for(var i=0; i< eatersArr[0].length;i++){
+              
             
-                
-                    if(eatersArr[1].age <=12){
-                        fill("#fad415");
+                 //console.log(lg);
+                for(var k=0; k < eatersArr.length;k++){
+            if(eatersArr[k].x == j && eatersArr[k].y == i){
+                    if(eatersArr[k].age <=12){
+                        fill("red");
                     }
-                    else if(eatersArr[1].age <=18){
+                    else if(eatersArr[k].age <=18){
                         fill("##fae715");
                     }
                     else{
                         fill("yellow");
                     }
-                //}
-                
+                }
+            }
                 rect(j * side, i * side, side, side);
             
         }
@@ -133,11 +150,7 @@ function draw() {
 }
 }
     // //console.log(dieCount +"_"+dieCount+"_"+mullCount+"_"+games+"_"+moveCount);
-    // gamesC.innerText = "games:" + games;
-    // dieC.innerText = "dieCount:" + dieCount;
-    // lifeC.innerText = "lifeCount:" + lifeCount;
-    // mullC.innerText = "mullCount:" + mullCount;
-    // moveC.innerText = "moveCount:" + moveCount;
+  
    
     // newc =dieCount+dieCount+mullCount+moveCount;
     // if(old == newc){

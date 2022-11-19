@@ -26,13 +26,15 @@ class GrassEater extends Main  {
             if (x >= 0 && x <  matrix[0].length && y >= 0 && y < matrix.length) {
              for(var b =0; b<eatersArr.length;b++){
                //console.log(eatersArr[b].x+":"+eatersArr[b].y);
-                if(eatersArr[b].x >= this.x-1 &&
-                    eatersArr[b].x <= this.x+1 && 
-                    eatersArr[b].y >=this.y-1 && 
-                    eatersArr[b].y<=this.y+1 && this.gender!=  eatersArr[b].gender &&
+                if(eatersArr[b].x == this.x-1 || eatersArr[b].x == this.x || eatersArr[b].x == this.x+1 &&
+                    eatersArr[b].y == this.x-1  || eatersArr[b].y == this.x ||eatersArr[b].y == this.x+1 &&
+                    this.gender!=  eatersArr[b].gender &&
                     eatersArr[b].age >=18){
                     //console.log(eatersArr[b].gender);
                     return true;
+                }
+                else{
+                    return false;
                 }
              }
                   
@@ -60,6 +62,7 @@ class GrassEater extends Main  {
             //նոր կորդինատներ է ստանում
             this.x = x;
             this.y = y;
+            moveCount++;
         }
         if(this.age >=Math.floor(Math.random() * 100)+18){
             this.die(matrix,eatersArr);
@@ -92,7 +95,7 @@ class GrassEater extends Main  {
 
             //բազմացման գործակիցը մեծացնում է
             this.multiply+= Math.floor(Math.random() * 10);
-
+            //console.log(this.multiply);
             //մեծացնում է էներգիան
             this.energy++;
             for (var i in grassArr) {
@@ -101,13 +104,14 @@ class GrassEater extends Main  {
                     lifeCount--;
                     grassCount--;
                 }
+            
             }
 
             //եթե պատրաստ է բազմացմանը, բազմանում է 
           if (this.gender == 0){
 
           
-            if (this.multiply == 10 && this.getMull(2,matrix,eatersArr)) {
+            if (this.multiply >= 10 && this.getMull(2,matrix,eatersArr) == true) {
 
                 this.mul(matrix,eatersArr);
                 this.multiply = 1;
@@ -123,12 +127,16 @@ class GrassEater extends Main  {
                 this.die(matrix,eatersArr);
             }
         }
+        if(this.age >=  Math.floor(Math.random() * 20 +18)){
+
+        }
     }
     
 
     //mul() բազմանալ
     mul(matrix,eatersArr) {
         lifeCount++;
+        //console.log("mul0");
         //փնտրում է դատարկ տարածք
         var emptyCells = this.chooseCell(0, matrix);
         var coord = emptyCells[Math.floor(Math.random() * emptyCells.length)];
@@ -147,16 +155,16 @@ class GrassEater extends Main  {
             matrix[y][x] = 2;
         
         }
-        else {
-            this.die(matrix,eatersArr)
+       
+        if (this.age >= Math.floor(Math.random() * 100 +18) ){ //մահանում է, եթե էներգիան 0֊ից ցածր է
+            this.die(matrix,eatersArr);
         }
     }
 
     //die() մահանալ
     die(matrix,eatersArr) {
-        if(matrix != undefined){
         matrix[this.y][this.x] = 0;
-
+        dieCount++;
         //ջնջում է ինքն իրեն խոտակերների զանգվածից
         for (var i in eatersArr) {
             if (this.x == eatersArr[i].x && this.y == eatersArr[i].y) {
@@ -171,7 +179,7 @@ class GrassEater extends Main  {
                 
             }
         }
-    }
+    
     }
 
 }

@@ -6,7 +6,7 @@ var io = require('socket.io')(server);
 
 var port = 3000;
 
-var FPS = 500;
+var FPS = 300;
 
 var matrix_sizeX =50;
 var matrix_sizeY =50;
@@ -130,9 +130,10 @@ function GAME() {
         }
     }
     startGame = false;
-}
+}   
+    info = [gamesCount,dieCount,lifeCount,mullCount,moveCount,maleCount,gerlCount,grassCount];
     data = [matrix,grassArr,redgrassArr,eatersArr,
-        eaterblueArr,eaterredArr,eaterdarkArr];
+        eaterblueArr,eaterredArr,eaterdarkArr,info];
     io.emit("data",data);
 if(matrix != undefined){
     for (var i in grassArr) {

@@ -7,7 +7,7 @@ btn1.addEventListener("click", () => {
 });
 var btn2 = document.getElementById("btn2");
 btn2.addEventListener("click", () => {
-io.emit("restart","restart");
+socket.emit("restart","restart");
 });
 var btn3 = document.getElementById("btn3");
 btn3.addEventListener("click", () => {
@@ -202,3 +202,5 @@ var dieC = document.getElementById("dieCount");
 var lifeC = document.getElementById("lifeCount");
 var mullC = document.getElementById("mullCount");
 var moveC = document.getElementById("moveCount");
+var girlsC = document.getElementById("girlsCount");
+var mansC = document.getElementById("mansCount");
