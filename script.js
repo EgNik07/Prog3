@@ -7,7 +7,7 @@ var endc = 0;
 
 var games = 0;
 var FPS = 1;
-var socket = io();
+var socket = io.connect("http://localhost:3000/");
 var matrix;
 var dataTrue;
 var grassArr = []; //

@@ -1,13 +1,25 @@
 var btn1 = document.getElementById("btn1");
 clickCount = 0;
 
+var gamesC = document.getElementById("games");
+var dieC = document.getElementById("dieCount");
+var lifeC = document.getElementById("lifeCount");
+var mullC = document.getElementById("mullCount");
+var moveC = document.getElementById("moveCount");
+var girlsC = document.getElementById("girlsCount");
+var mansC = document.getElementById("mansCount");
+
 btn1.addEventListener("click", () => {
     btn1.innerText = "clicks:" + clickCount;
     clickCount++;
 });
+
 var btn2 = document.getElementById("btn2");
+
 btn2.addEventListener("click", () => {
+
 socket.emit("restart","restart");
+
 });
 var btn3 = document.getElementById("btn3");
 btn3.addEventListener("click", () => {
@@ -197,10 +209,4 @@ sizeM_y.addEventListener("click", () => {
 });
 
 // Countsssss
-var gamesC = document.getElementById("games");
-var dieC = document.getElementById("dieCount");
-var lifeC = document.getElementById("lifeCount");
-var mullC = document.getElementById("mullCount");
-var moveC = document.getElementById("moveCount");
-var girlsC = document.getElementById("girlsCount");
-var mansC = document.getElementById("mansCount");
+

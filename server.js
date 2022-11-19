@@ -70,8 +70,9 @@ var Eaterred = require("./class/Eaterred");
 var startGame = true;
 var oldCountMax =0;
 function GAME() {
+    
     //console.log(eatersArr);
-    console.log(gamesCount+":"+dieCount,lifeCount,mullCount,moveCount+": Male "+maleCount+" Gerl:"+gerlCount +" Grass:"+grassCount);
+    //console.log(gamesCount+":"+dieCount,lifeCount,mullCount,moveCount+": Male "+maleCount+" Gerl:"+gerlCount +" Grass:"+grassCount);
     if( oldCount ==dieCount+lifeCount+mullCount+moveCount){
         oldCountMax++;
         if(oldCountMax==oldMaximum){
@@ -85,10 +86,7 @@ function GAME() {
     else{
         oldCount =dieCount+lifeCount+mullCount+moveCount;
     }
-    io.on("restart", function(dt){
-        startGame=true;
-        console.log(dt);
-    });
+    
     if(startGame){
     matrixCreat();
     for (var y = 0; y < matrix.length; y++) {
@@ -185,6 +183,10 @@ io.on('connection', function(socket){
     });
     
     
+});
+io.sockets.on("restart", function(dt){
+    startGame=true;
+    console.log(dt);
 });
 
 
