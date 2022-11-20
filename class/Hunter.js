@@ -47,7 +47,7 @@ class Hunter extends Main  {
 
 
     move(matrix,hunterArr) {
-        console.log(hunterCount);
+        //console.log(hunterCount);
         //որոնում է դատարկ տարածքներ
         var emptyCells = this.chooseCell(0,matrix);
         var cօord = emptyCells[Math.floor(Math.random() * emptyCells.length)]; // 4,3
@@ -89,7 +89,46 @@ class Hunter extends Main  {
 
     //eat()-ուտել
     eat(matrix,hunterArr,eatersArr) {
-      
+        // if(x!=undefined){
+        //     for(var g=0; g<= eatersArr.length; g++){
+        //         if(eatersArr.length != 0 && undefined !=eatersArr[g].x && eatersArr[g].x ==x && eatersArr[g].y == y&& eatersArr[g].hp>0){
+        //             eatersArr[g].hp -=5;
+        //             console.log(eatersArr[g].hp);
+        //            if(eatersArr[g].hp<=0){
+        //             matrix[y][x] = 3;
+        //             matrix[this.y][this.x] = 0;
+
+        //             this.x = x;
+        //     this.y = y;
+
+        //     this.multiply+= Math.floor(Math.random() * 10);
+        //     //console.log(this.energy);
+         
+        //     this.energy++;
+        //     for (var i in eatersArr) {
+        //         if (x == eatersArr[i].x && y == eatersArr[i].y) {
+        //             if(eatersArr[i].gender == 1){
+        //                 maleCount--;
+        //             }
+        //             else{
+        //                 gerlCount--;
+        //             }
+        //             eatersArr.splice(i, 1);
+        //             lifeCount--;
+                    
+        //         }
+
+        //            }
+
+        //         }
+
+        //     }
+            
+
+            
+            
+        //     }
+        // }
         var eatersCells = this.chooseCell(2,matrix);
         var coord = eatersCells[Math.floor(Math.random() * eatersCells.length)];
 
@@ -99,12 +138,7 @@ class Hunter extends Main  {
         if (coord) {
             var x = coord[0];
             var y = coord[1];
-        if(x!=undefined){
-            for(var g=0; g<= eatersArr.length; g++){
-                if(eatersArr.length != 0 && undefined !=eatersArr[g].x && eatersArr[g].x ==x && eatersArr[g].y == y&& eatersArr[g].hp>0){
-                    eatersArr[g].hp -=5;
-                    console.log(eatersArr[g].hp);
-                   if(eatersArr[g].hp<=0){
+        
                     matrix[y][x] = 3;
                     matrix[this.y][this.x] = 0;
 
@@ -132,13 +166,8 @@ class Hunter extends Main  {
 
                 }
 
-            }
             
-
-            
-            
-            }
-        }
+        
 
           
             //console.log(this.energy);
@@ -158,7 +187,7 @@ class Hunter extends Main  {
         }
 
 
-        }
+        
 
         else {
             //եթե չկա հարմար սնունդ 

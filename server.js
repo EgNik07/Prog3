@@ -3,7 +3,7 @@ var path = require('path');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-
+const fs = require("fs");
 var port = 3000;
 
 var FPS = 300;
@@ -139,6 +139,20 @@ function GAME() {
     }
     
     if(startGame){
+
+        var  str = fs.readFileSync('data/data.txt', 'utf8');
+        global_gamesCount = parseInt(str.split('\n')[0],10)+1;
+        
+        //fs.appendFile("data/data.txt","hi");
+        var now = new Date();
+        fs.writeFileSync("data/data.txt",global_gamesCount+
+        "\n/////\n"+now +"\n"
+        +"time finish game:"+ ages+"/"+mounts+"/"+days
+        + fs.readFileSync("data/data.txt", "utf8"));
+        fs.writeFileSync("data/games/game_"+global_gamesCount+".txt",
+        "\n/////\n"+now +"\n"
+        +"time finish game:"+ ages+"/"+mounts+"/"+days
+        +"\nMullCount:"+mullCount);
         days =0;
         ages =0; 
         mounts = 6;
