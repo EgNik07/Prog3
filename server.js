@@ -17,12 +17,18 @@ var eatersArr = [];
 var eaterblueArr = [];//
 var eaterredArr = [];
 var eaterdarkArr = [];
+var hunterArr = [];
 
 var oldMaximum = 10;
 var global_gamesCount = 0;
 var gamesCount = 0;
 var oldCount;
+
+var hpConts = 1.0;
+
 //var fs = require("fs");
+
+
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -36,12 +42,19 @@ function matrixCreat(x =matrix_sizeX,y=matrix_sizeY){
     eaterblueArr = [];//
     eaterredArr = [];
     eaterdarkArr = [];
+    hunterArr=[];
     matrix = []; 
     for(i =0; i<y;i++){
         
         arr = [];
         for(c=0; c<=x; c++){
-            arr.push(getRandomInt(3));
+            var gt =getRandomInt(4)- getRandomInt(4);
+            if(gt <0){
+                var gt = 0;
+            }
+            
+
+            arr.push(gt );
         }
         matrix.push(arr);
         
@@ -60,17 +73,55 @@ app.get("/", function(req, res){
 });
 var matrix = [];  
 
-
+var GrassEater = require("./class/GrassEater");
 var Grass = require("./class/Grass");
+var Hunter = require("./class/Hunter")
 var RedGrass = require("./class/RedGrass");
 var Eaterblue = require("./class/Eaterblue");
-var GrassEater = require("./class/GrassEater");
+
 var Eaterdark = require("./class/Eaterdark");
 var Eaterred = require("./class/Eaterred");
 var startGame = true;
 var oldCountMax =0;
+
+var ages = 0;
+var days = 0;
+var mounts = 6;
+var summer = true;
+var winter = false;
+var autumn = false;
+var spring =  false;
 function GAME() {
-    
+    days++;
+    if(days >=30){
+        mounts ++;
+        days = 0;
+    }
+   
+    if(mounts ==3 ){
+        winter = false;
+        spring = true;
+        
+    }
+    else if(mounts ==6 ){
+        spring = false;
+        summer = true;
+    }
+    else if(mounts ==9){
+        summer = false
+        autumn = true;
+      
+    }
+    else if(mounts ==12 ){
+        winter = true;
+        autumn = false;
+        
+    }
+    else if (mounts >12){
+        ages++;
+        mounts =0;
+    }
+   
     //console.log(eatersArr);
     //console.log(gamesCount+":"+dieCount,lifeCount,mullCount,moveCount+": Male "+maleCount+" Gerl:"+gerlCount +" Grass:"+grassCount);
     if( oldCount ==dieCount+lifeCount+mullCount+moveCount){
@@ -88,7 +139,17 @@ function GAME() {
     }
     
     if(startGame){
-    matrixCreat();
+        days =0;
+        ages =0; 
+        mounts = 6;
+        dieCount = 0;
+        lifeCount = 0;
+        mullCount =0;
+        moveCount = 0;
+        maleCount =0;
+        gerlCount =0;
+        grassCount =0;
+        matrixCreat();
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
 
@@ -96,42 +157,26 @@ function GAME() {
                 var grass = new Grass(x, y);
                 grassArr.push(grass);
             }
-
-            else if (matrix[y][x] == 2) {
-                if( Math.floor(Math.random() * 2)==1){
-                    var eater = new GrassEater(x, y,1);
-                }
-                else{
-                    var eater = new GrassEater(x, y,0);
-                }
-                
-                eatersArr.push(eater);
-            }
             else if (matrix[y][x] == 3) {
-                var eaterbluE = new Eaterblue(x, y);
-                eaterblueArr.push(eaterbluE);
+                
+                var hunter = new Hunter(x, y,Math.floor(Math.random() * 2)==1,15*hpConts);
+                hunterArr.push(hunter);
+                }
+    
+            else if (matrix[y][x] == 2) {
 
+            var eater = new GrassEater(x, y, Math.floor(Math.random() * 2)==1,10*hpConts);
+            eatersArr.push(eater);
             }
-            else if (matrix[y][x] == 4) {
-                var eaterred = new Eaterred(x, y);
-                eaterredArr.push(eaterred);
-            }
-            else if (matrix[y][x] == 5) {
-                var eaterdark = new Eaterdark(x, y);
-                eaterdarkArr.push(eaterdark);
-            }
-            else if (matrix[y][x] == 6) {
-                var redgrass = new RedGrass(x, y);
-                redgrassArr.push(redgrass);
-            }
-
+            
         }
     }
     startGame = false;
 }   
+    weather =[days, mounts, ages, summer, autumn, winter, spring];
     info = [gamesCount,dieCount,lifeCount,mullCount,moveCount,maleCount,gerlCount,grassCount];
     data = [matrix,grassArr,redgrassArr,eatersArr,
-        eaterblueArr,eaterredArr,eaterdarkArr,info];
+        eaterblueArr,eaterredArr,eaterdarkArr,info,weather];
     io.emit("data",data);
 if(matrix != undefined){
     for (var i in grassArr) {
@@ -142,24 +187,19 @@ if(matrix != undefined){
         
         redgrassArr[i].mul(matrix,redgrassArr);
     }
-
+    for (var i in hunterArr) {
+        hunterArr[i].eat(matrix,hunterArr,eatersArr);
+    }
     for (var i in eatersArr) {
         
         eatersArr[i].eat(matrix,eatersArr,grassArr);
     }
    
-    for (var i in eaterblueArr) {
-        eaterblueArr[i].eat(matrix,eaterblueArr);
-    }
-    for (var i in eaterredArr) {
-        eaterredArr[i].eat(matrix,eaterredArr);
-    }
-    for (var i in eaterdarkArr) {
-        eaterdarkArr[i].eat(matrix,eaterdarkArr);
-    }
+    
+   
 }
     
-    
+
     //endc = 0;
     
     
@@ -176,17 +216,19 @@ app.use(express.static('./'));
 
 io.on('connection', function(socket){
     console.log("connect");
-    setInterval(GAME,FPS);
-    io.on('disconnect', (res,req) => {
-       res.send('disconnected');
-       console.log('disconnected');
+    
+   
+    socket.on("restart", function(dt){
+        if(days > 5 ){
+        startGame=true;
+        console.log(dt);
+        
+        }
     });
+    setInterval(GAME,FPS);
     
     
-});
-io.sockets.on("restart", function(dt){
-    startGame=true;
-    console.log(dt);
+    
 });
 
 

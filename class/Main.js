@@ -5,16 +5,18 @@ moveCount = 0;
 maleCount =0;
 gerlCount =0;
 grassCount =0;
+hunterCount =0;
 class Main{
-    constructor(x, y) {
+    constructor(x, y,hp) {
         this.x = x;
         this.y = y;
         this.multiply = 1;
-        this.energy = 5;
+    
         this.directions = [];
         mullCount++;
         lifeCount++;
         this.age = 0;
+        this.hp = hp;
     
     }
     updateCoordinates() {

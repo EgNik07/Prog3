@@ -42,7 +42,36 @@ socket.on("data", function(data){
     maleCount = info[5];
     gerlCount = info[6];
     grassCount = info[7];
+    weather = data[8];
+    days = weather[0];
+    mounts = weather[1];
+    ages = weather[2];
+    summer = weather[3];
+    autumn = weather[4];
+    winter = weather[5];
+    spring = weather[6];
     gamesC.innerText = "games:" + games;
+    agesC.innerText = "age:" + ages +"/";
+    mountsC.innerText = "mounts:" + mounts+"/";
+    if (days > 9){
+        daysC.innerText = "days:" + days +"||";
+    }
+    else{
+        daysC.innerText = "days:" + days+ "| |";
+    }
+   
+    if(summer){
+        weatherC.innerText = " weather: summer" ;
+    }
+    else if (autumn){
+        weatherC.innerText = " weather: autumn" ;
+    }
+    else if (winter){
+        weatherC.innerText = " weather: winter" ;
+    }
+    else if (spring){
+        weatherC.innerText = " weather: spring" ;
+    }
     dieC.innerText = "dieCount:" + dieCount;
     lifeC.innerText = "lifeCount:" + lifeCount;
     mullC.innerText = "mullCount:" + mullCount;
@@ -96,40 +125,32 @@ function draw() {
     for (var i = 0; i < matrix.length; i++) {
         for (var j = 0; j < matrix[i].length; j++) {
             lifeCount++;
-            if (matrix[i][j] == 1) {
-                fill("green");
-                rect(j * side, i * side, side, side);
-
-            }
-            else if (matrix[i][j] == 3) {
-                fill("blue");
-                rect(j * side, i * side, side, side);
-            }
-            else if (matrix[i][j] == 2) {
-              
-            
-                 //console.log(lg);
-                for(var k=0; k < eatersArr.length;k++){
-            if(eatersArr[k].x == j && eatersArr[k].y == i){
-                    if(eatersArr[k].age <=12){
-                        fill("red");
-                    }
-                    else if(eatersArr[k].age <=18){
-                        fill("##fae715");
-                    }
-                    else{
-                        fill("yellow");
-                    }
-                }
-            }
-                rect(j * side, i * side, side, side);
-            
-        }
-            else if (matrix[i][j] == 0) {
+             if (matrix[i][j] == 0) {
                 lifeCount--;
                 fill('grey');
                 rect(j * side, i * side, side, side);
             }
+            else if (matrix[i][j] == 1) {
+                fill("green");
+                rect(j * side, i * side, side, side);
+
+            }
+           
+            else if (matrix[i][j] == 2) { 
+
+                for(var k=0; k < eatersArr.length;k++){
+            if(eatersArr[k].x == j && eatersArr[k].y == i){
+                    fill(255, 180+eatersArr[k].age, 0);  
+                }
+            }
+                rect(j * side, i * side, side, side);
+            
+            }
+            else if (matrix[i][j] == 3) {
+            fill("brown");
+            rect(j * side, i * side, side, side);
+            }
+           
             else if (matrix[i][j] == 4) {
                 fill('red');
                 rect(j * side, i * side, side, side);

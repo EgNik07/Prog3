@@ -45,6 +45,11 @@ font-family: 'Roboto', sans-serif; */
     justify-content: center;
 }
 .content1{
+    margin-top:130px;
     display: flex;
     justify-content: space-between;
+}
+.time{
+    display: flex;
+    
 }

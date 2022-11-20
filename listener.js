@@ -1,6 +1,3 @@
-var btn1 = document.getElementById("btn1");
-clickCount = 0;
-
 var gamesC = document.getElementById("games");
 var dieC = document.getElementById("dieCount");
 var lifeC = document.getElementById("lifeCount");
@@ -8,6 +5,13 @@ var mullC = document.getElementById("mullCount");
 var moveC = document.getElementById("moveCount");
 var girlsC = document.getElementById("girlsCount");
 var mansC = document.getElementById("mansCount");
+var agesC = document.getElementById("agesCount");
+var mountsC = document.getElementById("mountsCount");
+var daysC = document.getElementById("daysCount");
+var weatherC = document.getElementById("weatherCount");
+
+var btn1 = document.getElementById("btn1");
+clickCount = 0;
 
 btn1.addEventListener("click", () => {
     btn1.innerText = "clicks:" + clickCount;

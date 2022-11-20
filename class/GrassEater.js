@@ -2,9 +2,9 @@ var Main = require("./Main.js");
 class GrassEater extends Main  {
     
 
-    constructor(x, y,gender) {
-        super(x,y);
-        
+    constructor(x, y,gender,hp) {
+        super(x,y,hp);
+        this.energy = 5;
         if(gender ==1 ){
         this.gender = 1;
         //console.log(gender);
