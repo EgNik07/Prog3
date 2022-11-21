@@ -39,7 +39,7 @@ font-family: 'Roboto', sans-serif; */
     height:600px;
 }
 .myCanvas{
-    height: 10px;
+    height: 100px;
     width: 60%;
     display: flex;
     justify-content: center;

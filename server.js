@@ -140,19 +140,19 @@ function GAME() {
     
     if(startGame){
 
-        var  str = fs.readFileSync('data/data.txt', 'utf8');
-        global_gamesCount = parseInt(str.split('\n')[0],10)+1;
+        // var  str = fs.readFileSync('data/data.txt', 'utf8');
+        // global_gamesCount = parseInt(str.split('\n')[0],10)+1;
         
-        //fs.appendFile("data/data.txt","hi");
-        var now = new Date();
-        fs.writeFileSync("data/data.txt",global_gamesCount+
-        "\n/////\n"+now +"\n"
-        +"time finish game:"+ ages+"/"+mounts+"/"+days
-        + fs.readFileSync("data/data.txt", "utf8"));
-        fs.writeFileSync("data/games/game_"+global_gamesCount+".txt",
-        "\n/////\n"+now +"\n"
-        +"time finish game:"+ ages+"/"+mounts+"/"+days
-        +"\nMullCount:"+mullCount);
+        // //fs.appendFile("data/data.txt","hi");
+        // var now = new Date();
+        // fs.writeFileSync("data/data.txt",global_gamesCount+
+        // "\n/////\n"+now +"\n"
+        // +"time finish game:"+ ages+"/"+mounts+"/"+days
+        // + fs.readFileSync("data/data.txt", "utf8"));
+        // fs.writeFileSync("data/games/game_"+global_gamesCount+".txt",
+        // "\n/////\n"+now +"\n"
+        // +"time finish game:"+ ages+"/"+mounts+"/"+days
+        // +"\nMullCount:"+mullCount);
         days =0;
         ages =0; 
         mounts = 6;
@@ -229,7 +229,7 @@ app.use(express.static('./'));
 
 
 io.on('connection', function(socket){
-    console.log("connect");
+    //console.log("connect");
     
    
     socket.on("restart", function(dt){
@@ -240,20 +240,64 @@ io.on('connection', function(socket){
         }
     });
     socket.on("clickCoord" ,function(clickCoord){
-        var x = clickCoord[0];
-        var y = clickCoord[1];
-        console.log(matrix[y][x]);
-        if(matrix[y][x] == 1){
-            for(i in grassArr){
-                if(grassArr[i].x == x && grassArr[i].y ==y){
-                   grassArr.splice(i, 1);
-                   matrix[y][x] = 0;
-                   console.log("fd");
-                }
-            }
+       
+        var sofd = clickCoord[2];
+        var oldX = clickCoord[0]-2;
+        var oldY = clickCoord[1]-2;
+        //console.log(sofd)
+        if(sofd ==1){
+            var x = clickCoord[0];
+            var y = clickCoord[1];
         }
+        else if(sofd ==2){
+            var x = clickCoord[0]-1;
+            var y = clickCoord[1]-1;
+        }
+        else{
+            var x = clickCoord[0]+2;
+            var y = clickCoord[1]+2;
+        }
+        if(x<0)x =0;
+        if(y<0)y=0;
+        if(x>matrix_sizeX)x=matrix_sizeX;
+        if(y>matrix_sizeY)y=matrix_sizeY;
+        //console.log(matrix[y][x]);
+        
+        
+        
+    
 
-    });
+        
+        //for (var f =0; f<sofd;f++){
+            for(oldY; oldY<=y ;oldY++){
+                if(matrix[y][x] == 1){
+            
+                  for(oldX; oldX<=x;oldX++){
+                     for(i in grassArr){
+                        if(grassArr[i].x == oldX && grassArr[i].y ==oldY){
+                        grassArr.splice(i, 1);
+                        matrix[oldY][oldX] = 0;
+                        ///console.log("///"+matrix[Y][X]);
+                        }
+                    
+                    }///
+                    
+                    console.log(oldX)
+                    
+                    }  
+                    oldX=0;
+            }  
+        
+        
+    }
+        
+    
+    
+    }///
+//}
+
+    );
+
     setInterval(GAME,FPS);
     
     

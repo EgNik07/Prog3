@@ -114,10 +114,14 @@ function setup() {
 
    
 }
-myCanvas.addEventListener('click', function(event) {
-    var x = parseInt( event.clientX/side);
-    const y = parseInt( event.clientY/side);
-   socket.emit("clickCoord", [x,y])
+
+myCanvas.addEventListener('mousedown', function(event) {
+    var canvasXY =myCanvas.getBoundingClientRect();
+    var x = parseInt( event.clientX/side) - 1 - parseInt(canvasXY.left/side);
+    var y = parseInt( event.clientY/side) - 1 -parseInt(canvasXY.top/side);
+    
+    // console.log(x+":"+y,canvasXY);
+   socket.emit("clickCoord", [x,y,sofd])
 })
 
 function draw() {

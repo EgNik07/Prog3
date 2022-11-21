@@ -11,8 +11,12 @@ var daysC = document.getElementById("daysCount");
 var weatherC = document.getElementById("weatherCount");
 
 var btn1 = document.getElementById("btn1");
-clickCount = 0;
 
+var sofd = 3;
+
+
+
+clickCount = 0;
 btn1.addEventListener("click", () => {
     btn1.innerText = "clicks:" + clickCount;
     clickCount++;
