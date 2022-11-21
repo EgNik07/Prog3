@@ -94,9 +94,9 @@ function getRandomColor() {
     }
     return color;
 }
-function createMob(){
-    console.log(MouseEvent);
-}
+// function createMob(){
+//     socket.emit("click", )
+// }
 
 function setup() {
     if(dataTrue){
@@ -106,13 +106,19 @@ function setup() {
    
     var myCanvas = createCanvas(matrix[0].length * side, matrix.length * side); //կանվասի չափերը դնել մատրիցի չափերին համապատասխան
     myCanvas.parent("myCanvas");
-    myCanvas.mouseClicked(createMob);
+   
     background('#acacac');
     
 }
     
-    
+
+   
 }
+myCanvas.addEventListener('click', function(event) {
+    var x = parseInt( event.clientX/side);
+    const y = parseInt( event.clientY/side);
+   socket.emit("clickCoord", [x,y])
+})
 
 function draw() {
     if(dataTrue){

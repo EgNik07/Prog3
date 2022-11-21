@@ -239,6 +239,21 @@ io.on('connection', function(socket){
         
         }
     });
+    socket.on("clickCoord" ,function(clickCoord){
+        var x = clickCoord[0];
+        var y = clickCoord[1];
+        console.log(matrix[y][x]);
+        if(matrix[y][x] == 1){
+            for(i in grassArr){
+                if(grassArr[i].x == x && grassArr[i].y ==y){
+                   grassArr.splice(i, 1);
+                   matrix[y][x] = 0;
+                   console.log("fd");
+                }
+            }
+        }
+
+    });
     setInterval(GAME,FPS);
     
     
