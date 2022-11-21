@@ -34,9 +34,16 @@ class Grass {
 
 
     
-    mul(matrix,grassArr) {
+    mul(matrix,grassArr,summer,winter,spring,autumn) {
         this.multiply++;
-        if (this.multiply >= 1) {
+        var multiplyMax=1;
+
+        if(summer)multiplyMax =1;
+        if(winter)multiplyMax =5;
+        if(spring)multiplyMax =3;
+        if(autumn)multiplyMax =2;
+
+        if (this.multiply >= multiplyMax) {
             
             var emptyCells = this.chooseCell(0,matrix);
             var coord = emptyCells[Math.floor(Math.random() * emptyCells.length)];

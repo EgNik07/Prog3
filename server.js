@@ -5,7 +5,7 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 const fs = require("fs");
 var port = 3000;
-
+console.log
 var FPS = 300;
 
 var matrix_sizeX =50;
@@ -49,6 +49,12 @@ function matrixCreat(x =matrix_sizeX,y=matrix_sizeY){
         arr = [];
         for(c=0; c<=x; c++){
             var gt =getRandomInt(4)- getRandomInt(4);
+            if(gt ==3){
+                if(getRandomInt(4)==3){
+                    gt =3;
+                }
+                gt=getRandomInt(4);
+            }
             if(gt <0){
                 var gt = 0;
             }
@@ -81,6 +87,7 @@ var Eaterblue = require("./class/Eaterblue");
 
 var Eaterdark = require("./class/Eaterdark");
 var Eaterred = require("./class/Eaterred");
+const { get } = require("https");
 var startGame = true;
 var oldCountMax =0;
 
@@ -171,17 +178,18 @@ function GAME() {
                 var grass = new Grass(x, y);
                 grassArr.push(grass);
             }
-            else if (matrix[y][x] == 3) {
-                
-                var hunter = new Hunter(x, y,Math.floor(Math.random() * 2)==1,15*hpConts);
-                hunterArr.push(hunter);
-                }
+            
     
             else if (matrix[y][x] == 2) {
 
             var eater = new GrassEater(x, y, Math.floor(Math.random() * 2)==1,10*hpConts);
             eatersArr.push(eater);
             }
+            else if (matrix[y][x] == 3) {
+                
+                var hunter = new Hunter(x, y,Math.floor(Math.random() * 2)==1,15*hpConts);
+                hunterArr.push(hunter);
+                }
             
         }
     }
@@ -193,17 +201,18 @@ function GAME() {
         eaterblueArr,eaterredArr,eaterdarkArr,info,weather];
     io.emit("data",data);
 if(matrix != undefined){
+    for (var i in hunterArr) {
+        hunterArr[i].eat(matrix,hunterArr,eatersArr);
+    }
     for (var i in grassArr) {
-        grassArr[i].mul(matrix,grassArr);
+        grassArr[i].mul(matrix,grassArr,summer,winter,spring,autumn);
         
     }
     for (var i in redgrassArr) {
         
         redgrassArr[i].mul(matrix,redgrassArr);
     }
-    for (var i in hunterArr) {
-        hunterArr[i].eat(matrix,hunterArr,eatersArr);
-    }
+    
     for (var i in eatersArr) {
         
         eatersArr[i].eat(matrix,eatersArr,grassArr);
@@ -257,19 +266,16 @@ io.on('connection', function(socket){
             var x = clickCoord[0]+2;
             var y = clickCoord[1]+2;
         }
-        if(x<0)x =0;
+        if(x<0)x=0;
         if(y<0)y=0;
-        if(x>matrix_sizeX)x=matrix_sizeX;
-        if(y>matrix_sizeY)y=matrix_sizeY;
+        
+        if(x>=matrix_sizeX)x=matrix_sizeX;
+        if(y>=matrix_sizeY)y=matrix_sizeY-2;
         //console.log(matrix[y][x]);
-        
-        
-        
-    
-
-        
         //for (var f =0; f<sofd;f++){
             for(oldY; oldY<=y ;oldY++){
+             
+                if(y>matrix_sizeY)y=48;
                 if(matrix[y][x] == 1){
             
                   for(oldX; oldX<=x;oldX++){
@@ -282,11 +288,29 @@ io.on('connection', function(socket){
                     
                     }///
                     
-                    console.log(oldX)
+                    //console.log(oldX)
                     
                     }  
-                    oldX=0;
+                    oldX=x-4;
+                    if(oldX>matrix_sizeX)x=48;
             }  
+            if(matrix[y][x] == 2){
+            
+                for(oldX; oldX<=x;oldX++){
+                   for(i in eatersArr){
+                      if(eatersArr[i].x == oldX && eatersArr[i].y ==oldY){
+                      eatersArr.splice(i, 1);
+                      matrix[oldY][oldX] = 0;
+                      ///console.log("///"+matrix[Y][X]);
+                      }
+                  
+                  }///
+                  
+                  //console.log(oldX)
+                  
+                  }  
+                  oldX=x-4;
+          } 
         
         
     }

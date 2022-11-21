@@ -115,13 +115,25 @@ function setup() {
    
 }
 
-myCanvas.addEventListener('mousedown', function(event) {
+myCanvas.addEventListener('mousemove', function(event) {
+    var mouseD= true;
+    var mouseDcount =100;
+    while(mouseDcount){
+        mouseDcount++;
+        if (mouseDcount >100){
+            mouseDcount=0;
+        
     var canvasXY =myCanvas.getBoundingClientRect();
     var x = parseInt( event.clientX/side) - 1 - parseInt(canvasXY.left/side);
     var y = parseInt( event.clientY/side) - 1 -parseInt(canvasXY.top/side);
     
     // console.log(x+":"+y,canvasXY);
-   socket.emit("clickCoord", [x,y,sofd])
+    socket.emit("clickCoord", [x,y,sofd])
+}
+}}) 
+myCanvas.addEventListener('mouseup', function(event) {
+    mouseDcount = 0;
+    mouseD =false;
 })
 
 function draw() {

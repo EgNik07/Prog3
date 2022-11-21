@@ -47,133 +47,85 @@ class Hunter extends Main  {
 
 
     move(matrix,hunterArr) {
-        //console.log(hunterCount);
         //որոնում է դատարկ տարածքներ
-        var emptyCells = this.chooseCell(0,matrix);
+        var emptyCells = this.chooseCell(1,matrix);
         var cօord = emptyCells[Math.floor(Math.random() * emptyCells.length)]; // 4,3
 
         if (cօord) {
             var x = cօord[0];
             var y = cօord[1];
-            var x = cօord[4];
-            var x = cօord[3];
-            //շարժվում է
+            
+          
             matrix[y][x] = 3;
-            matrix[this.y][this.x] = 0;
+            matrix[this.y][this.x] = 1;
 
-            //նոր կորդինատներ է ստանում
+            
             this.x = x;
             this.y = y;
             moveCount++;
         }
-        emptyCells = this.chooseCell(1,matrix);
-        var cօord = emptyCells[Math.floor(Math.random() * emptyCells.length)]; // 4,3
+        emptyCells = this.chooseCell(0,matrix);
+        cօord = emptyCells[Math.floor(Math.random() * emptyCells.length)]; // 4,3
 
         if (cօord) {
             var x = cօord[0];
             var y = cօord[1];
-            var x = cօord[4];
-            var x = cօord[3]
-            //շարժվում է
+           
+          
             matrix[y][x] = 3;
             matrix[this.y][this.x] = 0;
 
-            //նոր կորդինատներ է ստանում
+            
             this.x = x;
             this.y = y;
             moveCount++;
         }
-        
+        if(this.age >=Math.floor(Math.random() * 100)+18){
+            this.die(matrix,hunterArr);
+        }
     }
+
 
 
     //eat()-ուտել
     eat(matrix,hunterArr,eatersArr) {
-        // if(x!=undefined){
-        //     for(var g=0; g<= eatersArr.length; g++){
-        //         if(eatersArr.length != 0 && undefined !=eatersArr[g].x && eatersArr[g].x ==x && eatersArr[g].y == y&& eatersArr[g].hp>0){
-        //             eatersArr[g].hp -=5;
-        //             console.log(eatersArr[g].hp);
-        //            if(eatersArr[g].hp<=0){
-        //             matrix[y][x] = 3;
-        //             matrix[this.y][this.x] = 0;
-
-        //             this.x = x;
-        //     this.y = y;
-
-        //     this.multiply+= Math.floor(Math.random() * 10);
-        //     //console.log(this.energy);
-         
-        //     this.energy++;
-        //     for (var i in eatersArr) {
-        //         if (x == eatersArr[i].x && y == eatersArr[i].y) {
-        //             if(eatersArr[i].gender == 1){
-        //                 maleCount--;
-        //             }
-        //             else{
-        //                 gerlCount--;
-        //             }
-        //             eatersArr.splice(i, 1);
-        //             lifeCount--;
-                    
-        //         }
-
-        //            }
-
-        //         }
-
-        //     }
-            
-
-            
-            
-        //     }
-        // }
-        var eatersCells = this.chooseCell(2,matrix);
-        var coord = eatersCells[Math.floor(Math.random() * eatersCells.length)];
+        var eaterCell = this.chooseCell(2,matrix);
+        var coord = eaterCell[Math.floor(Math.random() * eaterCell.length)];
 
         this.age++;
        
-        //եթե կա հարմար սնունդ
+      
         if (coord) {
             var x = coord[0];
             var y = coord[1];
-        
-                    matrix[y][x] = 3;
-                    matrix[this.y][this.x] = 0;
 
-                    this.x = x;
-            this.y = y;
-
-            this.multiply+= Math.floor(Math.random() * 10);
-            //console.log(this.energy);
-         
-            this.energy++;
-            for (var i in eatersArr) {
-                if (x == eatersArr[i].x && y == eatersArr[i].y) {
-                    if(eatersArr[i].gender == 1){
-                        maleCount--;
-                    }
-                    else{
-                        gerlCount--;
-                    }
-                    eatersArr.splice(i, 1);
-                    lifeCount--;
+            for(var t in eatersArr){
+                if(eatersArr[t].x == x && eatersArr[t].y ==y){
+                    eatersArr[t].hp-=4;
                     
+                    if(eatersArr[t].hp<=0){
+                        //console.log(eatersArr[t].hp)
+                       
+
+                    
+                    this.multiply+= Math.floor(Math.random() * 10);
+                
+                    this.energy++;
+                    for (var i in eatersArr) {
+                        if (x == eatersArr[i].x && y == eatersArr[i].y) {
+                            eatersArr.splice(i, 1);
+                            lifeCount--;
+                            
+                        }
+                    }
+                    matrix[y][x] = 3;
+                    matrix[this.y][this.x] = 2;
+                    this.x = x;
+                    this.y = y;
                 }
-
-                   }
-
-                }
-
+            }
             
-        
-
-          
-            //console.log(this.energy);
-         
-          
-            
+            }
 
             //եթե պատրաստ է բազմացմանը, բազմանում է 
           if (this.gender == 0){
@@ -184,18 +136,22 @@ class Hunter extends Main  {
                 this.mul(matrix,hunterArr);
                 this.multiply = 1;
             }
+            else{
+              
+                this.move(matrix,eatersArr);
+                console.log("move")
+            }
         }
 
 
-        
-
+        } 
         else {
-            //եթե չկա հարմար սնունդ 
-            this.move(matrix,hunterArr);
+           
+            
             this.energy--;
-            // if (this.energy <= 0) { //մահանում է, եթե էներգիան 0֊ից ցածր է
-            //     this.die(matrix,hunterArr);
-            // }
+            if (this.energy <= 0) { //մահանում է, եթե էներգիան 0֊ից ցածր է
+                this.die(matrix,eatersArr);
+            }
         }
         
     }
@@ -213,11 +169,9 @@ class Hunter extends Main  {
         if (coord) {
             var x = coord[0];
             var y = coord[1];
-            // this.multiply++;
-            //ստեղծում է նոր օբյեկտ (այստեղ խոտակեր) 
-            //և տեղադրում է այն խոտակերների զանգվածի մեջ
-            var newhunter = new Hunter(x, y,Math.floor(Math.random() * 2));
-            hunterArr.push(newhunter);
+           
+            var hunter = new Hunter(x, y,Math.floor(Math.random() * 2));
+            hunterArr.push(hunter);
 
             //հիմնական matrix-ում կատարում է գրառում նոր խոտի մասին
             matrix[y][x] = 3;
@@ -230,25 +184,25 @@ class Hunter extends Main  {
         if (coord) {
             var x = coord[0];
             var y = coord[1];
-            // this.multiply++;
-            //ստեղծում է նոր օբյեկտ (այստեղ խոտակեր) 
-            //և տեղադրում է այն խոտակերների զանգվածի մեջ
-            var newhunter = new Hunter(x, y,Math.floor(Math.random() * 2,10));
-            hunterArr.push(newhunter);
-
            
+            var hunter = new Hunter(x, y,Math.floor(Math.random() * 2));
+            hunterArr.push(hunter);
+
+            //հիմնական matrix-ում կատարում է գրառում նոր խոտի մասին
             matrix[y][x] = 3;
         
         }
        
-       
+        if (this.age >= Math.floor(Math.random() * 100 +18) ){ //մահանում է, եթե էներգիան 0֊ից ցածր է
+            this.die(matrix,hunterArr);
+        }
     }
 
     //die() մահանալ
     die(matrix,hunterArr) {
         matrix[this.y][this.x] = 0;
         dieCount++;
-        console.log("hunter is die");
+        //console.log(hunterCount);
         //ջնջում է ինքն իրեն խոտակերների զանգվածից
         for (var i in hunterArr) {
             if (this.x == hunterArr[i].x && this.y == hunterArr[i].y) {
