@@ -46,7 +46,7 @@ class Hunter extends Main  {
     }
 
 
-    move(matrix,hunterArr) {
+    move(matrix,hunterArr,grassArr) {
         //որոնում է դատարկ տարածքներ
         var emptyCells = this.chooseCell(1,matrix);
         var cօord = emptyCells[Math.floor(Math.random() * emptyCells.length)]; // 4,3
@@ -57,8 +57,12 @@ class Hunter extends Main  {
             
           
             matrix[y][x] = 3;
-            matrix[this.y][this.x] = 1;
-
+            matrix[this.y][this.x] = 0;
+            for(var e in grassArr){
+                if(grassArr[e].x ==x &&grassArr[e].y == y){
+                    grassArr.splice(e, 1);
+                }
+            }
             
             this.x = x;
             this.y = y;
@@ -88,7 +92,8 @@ class Hunter extends Main  {
 
 
     //eat()-ուտել
-    eat(matrix,hunterArr,eatersArr) {
+    eat(matrix,hunterArr,eatersArr,grassArr) {
+        this.move(matrix,eatersArr,grassArr);
         var eaterCell = this.chooseCell(2,matrix);
         var coord = eaterCell[Math.floor(Math.random() * eaterCell.length)];
 
@@ -105,7 +110,12 @@ class Hunter extends Main  {
                     
                     if(eatersArr[t].hp<=0){
                         //console.log(eatersArr[t].hp)
-                       
+                       if(eatersArr[t].gender == 1){
+                        maleCount--;
+                       }
+                       else{
+                        gerlCount--;
+                       }
 
                     
                     this.multiply+= Math.floor(Math.random() * 10);
@@ -119,7 +129,7 @@ class Hunter extends Main  {
                         }
                     }
                     matrix[y][x] = 3;
-                    matrix[this.y][this.x] = 2;
+                    matrix[this.y][this.x] = 0;
                     this.x = x;
                     this.y = y;
                 }
@@ -133,14 +143,15 @@ class Hunter extends Main  {
           
             if (this.multiply >= 10 && this.getMull(2,matrix,hunterArr) == true) {
 
-                this.mul(matrix,hunterArr);
+                this.mul(matrix,hunterArr,grassArr);
                 this.multiply = 1;
+                //console.log("new hunter");
             }
-            else{
+            
               
-                this.move(matrix,eatersArr);
-                console.log("move")
-            }
+               
+                //console.log("move")
+            
         }
 
 
@@ -158,7 +169,7 @@ class Hunter extends Main  {
     
 
     //mul() բազմանալ
-    mul(matrix,hunterArr) {
+    mul(matrix,hunterArr,grassArr) {
         lifeCount++;
         //console.log("mul0");
         //փնտրում է դատարկ տարածք
@@ -175,6 +186,11 @@ class Hunter extends Main  {
 
             //հիմնական matrix-ում կատարում է գրառում նոր խոտի մասին
             matrix[y][x] = 3;
+            for(var e in grassArr){
+                if(grassArr[e].x ==x &&grassArr[e].y == y){
+                    grassArr.splice(e, 1);
+                }
+            }
         
         }
         var emptyCells = this.chooseCell(1, matrix);
@@ -190,6 +206,7 @@ class Hunter extends Main  {
 
             //հիմնական matrix-ում կատարում է գրառում նոր խոտի մասին
             matrix[y][x] = 3;
+
         
         }
        
@@ -213,6 +230,7 @@ class Hunter extends Main  {
                     gerlCount--;
                 }
                 lifeCount--;
+                //hunterCount--;
                 hunterArr.splice(i, 1);
                 
             }

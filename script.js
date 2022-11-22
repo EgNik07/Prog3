@@ -42,6 +42,7 @@ socket.on("data", function(data){
     maleCount = info[5];
     gerlCount = info[6];
     grassCount = info[7];
+    hunterCount = info[8];
     weather = data[8];
     days = weather[0];
     mounts = weather[1];
@@ -78,6 +79,8 @@ socket.on("data", function(data){
     moveC.innerText = "moveCount:" + moveCount;
     girlsC.innerText = "Girls:" + gerlCount;
     mansC.innerText = "Mans:" + maleCount;
+    grassC.innerText = "Grass:" + grassCount;
+    hunterC.innerText = "Hunters:" + hunterCount;
     setup();
     draw();
 });
@@ -152,8 +155,24 @@ function draw() {
                 fill('grey');
                 rect(j * side, i * side, side, side);
             }
+            else if (matrix[i][j] == 3) {
+                fill("brown");
+                rect(j * side, i * side, side, side);
+                }
             else if (matrix[i][j] == 1) {
-                fill("green");
+                if(winter){
+                    fill(125, 188, 208);
+                }
+                else if(summer){
+                    fill("green");
+                }
+                else if (autumn){
+                    fill(243, 204, 126);
+                }
+                else if(spring){
+                    fill(152, 204, 126);
+                }
+                
                 rect(j * side, i * side, side, side);
 
             }
@@ -168,10 +187,7 @@ function draw() {
                 rect(j * side, i * side, side, side);
             
             }
-            else if (matrix[i][j] == 3) {
-            fill("brown");
-            rect(j * side, i * side, side, side);
-            }
+            
            
             else if (matrix[i][j] == 4) {
                 fill('red');

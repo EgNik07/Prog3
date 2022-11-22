@@ -98,7 +98,9 @@ var summer = true;
 var winter = false;
 var autumn = false;
 var spring =  false;
+var stop = false;
 function GAME() {
+    if(stop !=true){
     days++;
     if(days >=30){
         mounts ++;
@@ -170,6 +172,8 @@ function GAME() {
         maleCount =0;
         gerlCount =0;
         grassCount =0;
+        hunterCount =0;
+
         matrixCreat();
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
@@ -196,7 +200,7 @@ function GAME() {
     startGame = false;
 }   
     weather =[days, mounts, ages, summer, autumn, winter, spring];
-    info = [gamesCount,dieCount,lifeCount,mullCount,moveCount,maleCount,gerlCount,grassCount];
+    info = [gamesCount,dieCount,lifeCount,mullCount,moveCount,maleCount,gerlCount,grassCount,hunterCount];
     data = [matrix,grassArr,redgrassArr,eatersArr,
         eaterblueArr,eaterredArr,eaterdarkArr,info,weather];
     io.emit("data",data);
@@ -226,7 +230,7 @@ if(matrix != undefined){
     //endc = 0;
     
     
-}
+}}
 
 
 
@@ -248,6 +252,9 @@ io.on('connection', function(socket){
         
         }
     });
+    socket.on("stop", (stops)=>{
+        stop = stops;
+    })
     socket.on("clickCoord" ,function(clickCoord){
        
         var sofd = clickCoord[2];

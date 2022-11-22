@@ -1,3 +1,5 @@
+var size_xC = document.getElementById("size_xCount");
+var size_yC = document.getElementById("size_yCount");
 var gamesC = document.getElementById("games");
 var dieC = document.getElementById("dieCount");
 var lifeC = document.getElementById("lifeCount");
@@ -5,6 +7,8 @@ var mullC = document.getElementById("mullCount");
 var moveC = document.getElementById("moveCount");
 var girlsC = document.getElementById("girlsCount");
 var mansC = document.getElementById("mansCount");
+var hunterC = document.getElementById("hunterCount");
+var grassC = document.getElementById("grassCount");
 var agesC = document.getElementById("agesCount");
 var mountsC = document.getElementById("mountsCount");
 var daysC = document.getElementById("daysCount");
@@ -216,5 +220,15 @@ sizeM_y.addEventListener("click", () => {
    
 });
 
+
+var stopbtn = document.getElementById("stopbtn");
+stopbtn.addEventListener("click", () => {
+socket.emit("stop", true);
+});
+
+var runbtn = document.getElementById("runbtn");
+runbtn.addEventListener("click", () => {
+    socket.emit("stop", false);
+});
 // Countsssss
 

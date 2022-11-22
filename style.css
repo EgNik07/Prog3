@@ -53,3 +53,10 @@ font-family: 'Roboto', sans-serif; */
     display: flex;
     
 }
+.mSizes{
+    display: flex;
+    justify-content: space-between;
+    width: 100px;
+    height:100px ;
+    
+}
