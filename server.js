@@ -17,6 +17,7 @@ var eatersArr = [];
 var eaterblueArr = [];//
 var eaterredArr = [];
 var eaterdarkArr = [];
+var seaArr = [];
 var hunterArr = [];
 
 var oldMaximum = 10;
@@ -25,6 +26,7 @@ var gamesCount = 0;
 var oldCount;
 
 var hpConts = 1.0;
+var time =0;
 
 //var fs = require("fs");
 
@@ -44,23 +46,36 @@ function matrixCreat(x =matrix_sizeX,y=matrix_sizeY){
     eaterdarkArr = [];
     hunterArr=[];
     matrix = []; 
+    seaArr =[];
     for(i =0; i<y;i++){
         
         arr = [];
+        
         for(c=0; c<=x; c++){
-            var gt =getRandomInt(4)- getRandomInt(4);
-            if(gt ==3){
-                if(getRandomInt(4)==3){
-                    gt =3;
+            if(c >= x-2){
+                arr.push(4);
+            }
+            else{
+                var gt =getRandomInt(6);
+                if(gt ==3){
+                    if(getRandomInt(4)==3){
+                        gt =3;
+                    }
+                    gt=getRandomInt(4);
                 }
-                gt=getRandomInt(4);
-            }
-            if(gt <0){
-                var gt = 0;
-            }
-            
+                if(gt <0){
+                    var gt = 0;
+                }
+                if(gt == 5){
+                    if(1!= getRandomInt(100)){
+                       gt = getRandomInt(5); 
+                    }
+                    
+                }
+                
 
-            arr.push(gt );
+                arr.push(gt );
+            }
         }
         matrix.push(arr);
         
@@ -81,13 +96,15 @@ var matrix = [];
 
 var GrassEater = require("./class/GrassEater");
 var Grass = require("./class/Grass");
-var Hunter = require("./class/Hunter")
+var Hunter = require("./class/Hunter");
+var Sea =require("./class/Sea");
 var RedGrass = require("./class/RedGrass");
 var Eaterblue = require("./class/Eaterblue");
 
 var Eaterdark = require("./class/Eaterdark");
 var Eaterred = require("./class/Eaterred");
 const { get } = require("https");
+
 var startGame = true;
 var oldCountMax =0;
 
@@ -173,6 +190,7 @@ function GAME() {
         gerlCount =0;
         grassCount =0;
         hunterCount =0;
+        redgrassArr =0;
 
         matrixCreat();
     for (var y = 0; y < matrix.length; y++) {
@@ -194,13 +212,25 @@ function GAME() {
                 var hunter = new Hunter(x, y,Math.floor(Math.random() * 2)==1,15*hpConts);
                 hunterArr.push(hunter);
                 }
+            else if (matrix[y][x] == 4) {
             
+                var seanew = new Sea(x, y);
+                seaArr.push(seanew);
+                }
+            else if (matrix[y][x] == 5) {
+        
+                var newredgrass = new RedGrass(x, y);
+                redgrassArr.push(newredgrass);
+                //console.log('sdfsdf');
+                }
         }
     }
     startGame = false;
 }   
     weather =[days, mounts, ages, summer, autumn, winter, spring];
-    info = [gamesCount,dieCount,lifeCount,mullCount,moveCount,maleCount,gerlCount,grassCount,hunterCount];
+    info = [gamesCount,dieCount,lifeCount,
+        mullCount,moveCount,maleCount,gerlCount,
+        grassCount,hunterCount,matrix_sizeX, matrix_sizeY];
     data = [matrix,grassArr,redgrassArr,eatersArr,
         eaterblueArr,eaterredArr,eaterdarkArr,info,weather];
     io.emit("data",data);
@@ -212,14 +242,25 @@ if(matrix != undefined){
         grassArr[i].mul(matrix,grassArr,summer,winter,spring,autumn);
         
     }
-    for (var i in redgrassArr) {
-        
-        redgrassArr[i].mul(matrix,redgrassArr);
-    }
+    
     
     for (var i in eatersArr) {
         
         eatersArr[i].eat(matrix,eatersArr,grassArr);
+    }
+    
+    for (var i in seaArr) {
+        
+        seaArr[i].mul(matrix,seaArr,time,summer);
+        time++;
+        if(time >=25){
+            time =0;
+        }
+    }
+    for (var i in redgrassArr) {
+        
+        redgrassArr[i].mul(matrix,redgrassArr,summer,winter,spring,autumn);
+        //console.log('sdfsdf');
     }
    
     
@@ -255,6 +296,11 @@ io.on('connection', function(socket){
     socket.on("stop", (stops)=>{
         stop = stops;
     })
+    socket.on("matrix_sizes",(m_sizess)=>{
+        matrix_sizeX = m_sizess[0];
+        matrix_sizeY = m_sizess[1];
+        console.log(m_sizess)
+    });
     socket.on("clickCoord" ,function(clickCoord){
        
         var sofd = clickCoord[2];

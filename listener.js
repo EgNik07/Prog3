@@ -165,58 +165,24 @@ sideM.addEventListener("click", () => {
 var sizeP_x = document.getElementById("sizeP_x");
 sizeP_x.addEventListener("click", () => {
     size_x++;
-    grassArr = []; //
-     redgrassArr = [];//
-     eatersArr = [];
-     eaterblueArr = [];//
-     eaterredArr = [];
-     eaterdarkArr = [];
-    matrixCreat(size_x,size_y);
-    setup();
-    draw();
-    console.log( size_x);
+    socket.emit("matrix_sizes", [size_x,size_y]);
    
 });
 var sizeM_x = document.getElementById("sizeM_x");
 sizeM_x.addEventListener("click", () => {
     size_x--;
-    grassArr = []; //
-     redgrassArr = [];//
-     eatersArr = [];
-     eaterblueArr = [];//
-     eaterredArr = [];
-     eaterdarkArr = [];
-    matrixCreat(size_x,size_y);
-    setup();
-    draw();
+    socket.emit("matrix_sizes", [size_x,size_y]);
    
 });
 var sizeP_y = document.getElementById("sizeP_y");
 sizeP_y.addEventListener("click", () => {
     size_y++;
-     grassArr = []; //
-     redgrassArr = [];//
-     eatersArr = [];
-     eaterblueArr = [];//
-     eaterredArr = [];
-     eaterdarkArr = [];
-    matrixCreat(size_x,size_y);
-    setup();
-    draw();
-   
+    socket.emit("matrix_sizes", [size_x,size_y]);
 });
 var sizeM_y = document.getElementById("sizeM_y");
 sizeM_y.addEventListener("click", () => {
     size_y--;
-    grassArr = []; //
-    redgrassArr = [];//
-    eatersArr = [];
-    eaterblueArr = [];//
-    eaterredArr = [];
-    eaterdarkArr = [];
-    matrixCreat(size_x,size_y);
-    setup();
-    draw();
+    socket.emit("matrix_sizes", [size_x,size_y]);
    
 });
 

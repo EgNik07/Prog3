@@ -1,8 +1,8 @@
- class RedGrass {
+class RedGrass {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.multiply = 12;
+        this.multiply = 0;
         this.directions = [
             [this.x - 1, this.y - 1],
             [this.x, this.y - 1],
@@ -12,8 +12,11 @@
             [this.x - 1, this.y + 1],
             [this.x, this.y + 1],
             [this.x + 1, this.y + 1]
+
         ];
         mullCount++;
+        
+        lifeCount++;
 
     }
     chooseCell(character,matrix) {
@@ -31,26 +34,35 @@
     }
 
 
-    //mul() բազմացում
-    mul(matrix,redgrassArr) {
+    
+    mul(matrix,redgrassArr,summer,winter,spring,autumn) {
         this.multiply++;
-        if (this.multiply >= 0) {
-            //հետազոտում է շրջապատը, որոնում դատարկ տարածքներ
-            var emptyCells = this.chooseCell(0,matrix);
+        var multiplyMax=1;
+
+        if(summer)multiplyMax =20;
+        if(winter)multiplyMax =30;
+        if(spring)multiplyMax =50;
+        if(autumn)multiplyMax =10;
+
+        if (this.multiply >= multiplyMax) {
+            
+            var emptyCells = this.chooseCell(1,matrix);
             var coord = emptyCells[Math.floor(Math.random() * emptyCells.length)];
             if (coord) {
                 var x = coord[0];
                 var y = coord[1];
 
                 //ավելացնում է նոր խոտ խոտերի զանգվածում
-                var newRedGrass = new RedGrass(x, y);
-                redgrassArr.push(newRedGrass);
+                var newredGrass = new RedGrass(x, y);
+                redgrassArr.push(newredGrass);
 
                 //ավելացնում է նոր խոտ մատրիցում
-                matrix[y][x] = 6;
-                this.multiply = 10;
+                matrix[y][x] = 5;
+                this.multiply = 0;
+                //console.log('sdfsdf');
             }
         }
     }
 }
+
 module.exports = RedGrass;

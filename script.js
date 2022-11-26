@@ -16,6 +16,9 @@ var eatersArr = [];
 var eaterblueArr = [];//
 var eaterredArr = [];
 var eaterdarkArr = [];
+
+var size_x =50;
+var size_y = 50;
 socket.on("data", function(data){
     // for(i=0;i<data.length;i--){
     //     console.log(data[i]);
@@ -43,6 +46,8 @@ socket.on("data", function(data){
     gerlCount = info[6];
     grassCount = info[7];
     hunterCount = info[8];
+    size_x= info[9];
+    size_y= info[10];
     weather = data[8];
     days = weather[0];
     mounts = weather[1];
@@ -54,6 +59,8 @@ socket.on("data", function(data){
     gamesC.innerText = "games:" + games;
     agesC.innerText = "age:" + ages +"/";
     mountsC.innerText = "mounts:" + mounts+"/";
+    size_xC.innerText = size_x;
+    size_yC.innerText = size_y;
     if (days > 9){
         daysC.innerText = "days:" + days +"||";
     }
@@ -190,11 +197,11 @@ function draw() {
             
            
             else if (matrix[i][j] == 4) {
-                fill('red');
+                fill('blue');
                 rect(j * side, i * side, side, side);
             }
             else if (matrix[i][j] == 5) {
-                fill('613a3a');
+                fill('red');
                 rect(j * side, i * side, side, side);
             }
             else if (matrix[i][j] == 6) {
