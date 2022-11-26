@@ -56,7 +56,10 @@ function matrixCreat(x =matrix_sizeX,y=matrix_sizeY){
                 arr.push(4);
             }
             else{
-                var gt =getRandomInt(6);
+                var gt =getRandomInt(7);
+                if (gt ==4 ){
+                    gt -=getRandomInt(2);
+                }
                 if(gt ==3){
                     if(getRandomInt(4)==3){
                         gt =3;
@@ -223,6 +226,12 @@ function GAME() {
                 redgrassArr.push(newredgrass);
                 //console.log('sdfsdf');
                 }
+                else if (matrix[y][x] == 6) {
+        
+                    var newreaterred = new Eaterred(x, y);
+                   eaterredArr.push(newreaterred);
+                    //console.log('sdfsdf');
+                    }
         }
     }
     startGame = false;
@@ -257,12 +266,19 @@ if(matrix != undefined){
             time =0;
         }
     }
-    for (var i in redgrassArr) {
-        
-        redgrassArr[i].mul(matrix,redgrassArr,summer,winter,spring,autumn);
+    if( winter){
+        for (var i in redgrassArr) {
+            
+            redgrassArr[i].mul(matrix,redgrassArr,summer,winter,spring,autumn);
+            //console.log('sdfsdf');
+        }
+    }
+    for (var i in eaterredArr) {
+            
+        eaterredArr[i].eat(matrix,eaterredArr,grassArr);
         //console.log('sdfsdf');
     }
-   
+    
     
    
 }

@@ -125,7 +125,7 @@ function setup() {
    
 }
 
-myCanvas.addEventListener('mousemove', function(event) {
+myCanvas.addEventListener('click', function(event) {
     var mouseD= true;
     var mouseDcount =100;
     while(mouseDcount){
@@ -187,13 +187,15 @@ function draw() {
             else if (matrix[i][j] == 2) { 
 
                 for(var k=0; k < eatersArr.length;k++){
-            if(eatersArr[k].x == j && eatersArr[k].y == i){
-                    fill(255, 180+eatersArr[k].age, 0);  
-                }
-            }
-                rect(j * side, i * side, side, side);
-            
-            }
+                    if(eatersArr[k].x == j && eatersArr[k].y == i){
+                            var red = 180+eatersArr[k].age;
+                            if(red >255)red =0;
+                            fill(255, red, 0);  
+                        }
+                    }
+                        rect(j * side, i * side, side, side);
+                    
+                    }
             
            
             else if (matrix[i][j] == 4) {
@@ -205,9 +207,10 @@ function draw() {
                 rect(j * side, i * side, side, side);
             }
             else if (matrix[i][j] == 6) {
-                fill('#FA9D15');
+                fill(255,0,255);
                 rect(j * side, i * side, side, side);
             }
+            
         }
     }
     ///

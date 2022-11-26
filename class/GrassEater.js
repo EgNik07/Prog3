@@ -119,7 +119,39 @@ class GrassEater extends Main  {
         }
 
 
-        } else {
+        }
+         
+        
+        
+            grassCells = this.chooseCell(5,matrix);
+        coord = grassCells[Math.floor(Math.random() * grassCells.length)];
+
+            if(coord) {
+            var x = coord[0];
+            var y = coord[1];
+
+            for(var i in eatersArr){
+                if(eatersArr[i].x ==x && eatersArr[i].y==y){
+                    eatersArr.splice(i,1);
+                }
+            }
+            
+            }
+
+            //եթե պատրաստ է բազմացմանը, բազմանում է 
+          if (this.gender == 0){
+
+          
+            if (this.multiply >= 10 && this.getMull(2,matrix,eatersArr) == true) {
+
+                this.mul(matrix,eatersArr);
+                this.multiply = 1;
+            }
+        }
+
+
+        
+        else {
             //եթե չկա հարմար սնունդ 
             this.move(matrix,eatersArr);
             this.energy--;
@@ -131,6 +163,7 @@ class GrassEater extends Main  {
 
         }
     }
+
     
 
     //mul() բազմանալ
