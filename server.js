@@ -58,7 +58,7 @@ function matrixCreat(x =matrix_sizeX,y=matrix_sizeY){
             else{
                 var gt =getRandomInt(7);
                 if (gt ==4 ){
-                    gt -=getRandomInt(2);
+                    gt =0;
                 }
                 if(gt ==3){
                     if(getRandomInt(4)==3){
@@ -169,19 +169,19 @@ function GAME() {
     
     if(startGame){
 
-        // var  str = fs.readFileSync('data/data.txt', 'utf8');
-        // global_gamesCount = parseInt(str.split('\n')[0],10)+1;
+        var  str = fs.readFileSync('data/data.txt', 'utf8');
+        global_gamesCount = parseInt(str.split('\n')[0],10)+1;
         
-        // //fs.appendFile("data/data.txt","hi");
-        // var now = new Date();
-        // fs.writeFileSync("data/data.txt",global_gamesCount+
-        // "\n/////\n"+now +"\n"
-        // +"time finish game:"+ ages+"/"+mounts+"/"+days
-        // + fs.readFileSync("data/data.txt", "utf8"));
-        // fs.writeFileSync("data/games/game_"+global_gamesCount+".txt",
-        // "\n/////\n"+now +"\n"
-        // +"time finish game:"+ ages+"/"+mounts+"/"+days
-        // +"\nMullCount:"+mullCount);
+        //fs.appendFile("data/data.txt","hi");
+        var now = new Date();
+        fs.writeFileSync("data/data.txt",global_gamesCount+
+        "\n/////\n"+now +"\n"
+        +"time finish game:"+ ages+"/"+mounts+"/"+days
+        + fs.readFileSync("data/data.txt", "utf8"));
+        fs.writeFileSync("data/games/game_"+global_gamesCount+".txt",
+        "\n/////\n"+now +"\n"
+        +"time finish game:"+ ages+"/"+mounts+"/"+days
+        +"\nMullCount:"+mullCount);
         days =0;
         ages =0; 
         mounts = 6;
@@ -241,7 +241,7 @@ function GAME() {
         mullCount,moveCount,maleCount,gerlCount,
         grassCount,hunterCount,matrix_sizeX, matrix_sizeY];
     data = [matrix,grassArr,redgrassArr,eatersArr,
-        eaterblueArr,eaterredArr,eaterdarkArr,info,weather];
+        eaterblueArr,eaterredArr,eaterdarkArr,info,weather,FPS];
     io.emit("data",data);
 if(matrix != undefined){
     for (var i in hunterArr) {
@@ -312,10 +312,100 @@ io.on('connection', function(socket){
     socket.on("stop", (stops)=>{
         stop = stops;
     })
+    socket.on("fps", (FPS_client)=>{
+        FPS = FPS_client;
+        console.log(FPS)
+    });
     socket.on("matrix_sizes",(m_sizess)=>{
         matrix_sizeX = m_sizess[0];
         matrix_sizeY = m_sizess[1];
         console.log(m_sizess)
+    });
+    socket.on("delete_all" ,(d)=>{
+        console.log(d);
+        grassArr = []; //
+        redgrassArr = [];//
+        eatersArr = [];
+        eaterblueArr = [];//
+        eaterredArr = [];
+        eaterdarkArr = [];
+        hunterArr=[];
+        matrix = []; 
+        seaArr =[];
+        var  mt=[];
+       for(var i=0; i>=matrix_sizeY; i++){
+        mt =[]
+        for(var j =0; j>=matrix_sizeX;i++){
+            mt.push(0)
+        }
+        matrix.push(mt);
+       }
+    });
+    socket.on("delete_grasseater", (d)=>{
+        console.log(d);
+        eatersArr=[];
+        for(var i=0; i>=matrix_sizeY; i++){
+           
+            for(var j =0; j>=matrix_sizeX;i++){
+                if(matrix[i][j]==2){
+                    matrix[i][j]=0;
+                }
+            }
+           
+           }
+    });
+    socket.on("delete_grass", (d)=>{
+        console.log(d);
+        grassArr=[];
+        for(var i=0; i>=matrix_sizeY; i++){
+           
+            for(var j =0; j>=matrix_sizeX;i++){
+                if(matrix[i][j]==1){
+                    matrix[i][j]=0;
+                }
+            }
+           
+           }
+    });
+    socket.on("delete_sea", (d)=>{
+        console.log(d);
+        seaArr=[];
+        for(var i=0; i>=matrix_sizeY; i++){
+           
+            for(var j =0; j>=matrix_sizeX;i++){
+                if(matrix[i][j]==4){
+                    matrix[i][j]=0;
+                }
+            }
+           
+           }
+    });
+    
+    socket.on("delete_redgrass", (d)=>{
+        console.log(d);
+        redgrassArr=[];
+        for(var i=0; i>=matrix_sizeY; i++){
+           
+            for(var j =0; j>=matrix_sizeX;i++){
+                if(matrix[i][j]==4){
+                    matrix[i][j]=0;
+                }
+            }
+           
+           }
+    });
+    socket.on("delete_hunters", (d)=>{
+        console.log(d);
+        hunterArr=[];
+        for(var i=0; i>=matrix_sizeY; i++){
+           
+            for(var j =0; j>=matrix_sizeX;i++){
+                if(matrix[i][j]==3){
+                    matrix[i][j]=0;
+                }
+            }
+           
+           }
     });
     socket.on("clickCoord" ,function(clickCoord){
        

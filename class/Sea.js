@@ -53,7 +53,7 @@ class Sea {
         }
         }
     
-    else if(time >= 24&& seaArr.length>50 || !summer && seaArr.length>50){
+    else if(time >= 24&& seaArr.length>100 || !summer && seaArr.length>100){
             if(1 ==Math.floor(Math.random() * 10 )){
             for( var o in seaArr){
                 if(seaArr[o].x==this.x&& seaArr[o].y==this.y){

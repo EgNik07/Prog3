@@ -49,6 +49,7 @@ socket.on("data", function(data){
     size_x= info[9];
     size_y= info[10];
     weather = data[8];
+    FPS_serve = data[9];
     days = weather[0];
     mounts = weather[1];
     ages = weather[2];
@@ -56,6 +57,7 @@ socket.on("data", function(data){
     autumn = weather[4];
     winter = weather[5];
     spring = weather[6];
+    
     gamesC.innerText = "games:" + games;
     agesC.innerText = "age:" + ages +"/";
     mountsC.innerText = "mounts:" + mounts+"/";

@@ -196,13 +196,10 @@ class Eaterred extends Main  {
         if (coord) {
             var x = coord[0];
             var y = coord[1];
-            // this.multiply++;
-            //ստեղծում է նոր օբյեկտ (այստեղ խոտակեր) 
-            //և տեղադրում է այն խոտակերների զանգվածի մեջ
+           
             var newEater = new Eaterred(x, y,Math.floor(Math.random() * 2));
             eaterredArr.push(newEater);
 
-            //հիմնական matrix-ում կատարում է գրառում նոր խոտի մասին
             matrix[y][x] = 6;
         
         }

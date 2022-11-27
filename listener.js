@@ -33,121 +33,58 @@ btn2.addEventListener("click", () => {
 socket.emit("restart","restart");
 
 });
+
 var btn3 = document.getElementById("btn3");
 btn3.addEventListener("click", () => {
-    FPS--;
+    socket.emit("fps", FPS_serve-=10);
 });
 var btn4 = document.getElementById("btn4");
 btn4.addEventListener("click", () => {
-    FPS++;
-    setup();
+    socket.emit("fps", FPS_serve+=10);
+   
+  
 });
+
+//// delete buttons
+
 var btn5 = document.getElementById("btn5");
 btn5.addEventListener("click", () => {
-     grassArr = [];
-     redgrassArr = [];
-     eatersArr = [];
-     eaterblueArr = [];
-     eaterredArr = [];
-     eaterdarkArr = [];
-    for(i =0; i<matrix.length;i++){
+    
+       socket.emit("delete_all" , "delete_all");
         
-       
-        for(c=0; c<matrix[0].length; c++){
-            //if(matrix[i][c]==4){
-                matrix[i][c]=0;
-            //};
-        }
-       
-        
-    }
+    
 });
 var btn6 = document.getElementById("btn6");
 btn6.addEventListener("click", () => {
-    eatersArr = [];
+    socket.emit("delete_grasseater","delete_grasseater")
    
-   for(i =0; i<matrix.length;i++){
-       
-      
-       for(c=0; c<matrix[0].length; c++){
-           if(matrix[i][c]==2){
-               matrix[i][c]=0;
-           };
-       }
-    }
+   
 });
 var btn7 = document.getElementById("btn7");
 btn7.addEventListener("click", () => {
    
-    eaterdarkArr = [];
-    eaterblueArr = [];
-
-   for(i =0; i<matrix.length;i++){
-       
-      
-       for(c=0; c<matrix[0].length; c++){
-           if(matrix[i][c]==3){
-               matrix[i][c]=0;
-           };
-       }
-    }
+    socket.emit("delete_grass","delete_grass")
 });
 var btn8 = document.getElementById("btn8");
 btn8.addEventListener("click", () => {
-    
-    eaterredArr = [];
-    
-   for(i =0; i<matrix.length;i++){
-       
-      
-       for(c=0; c<matrix[0].length; c++){
-           if(matrix[i][c]==4){
-               matrix[i][c]=0;
-           };
-           }   
-         }
+    socket.emit("delete_sea","delete_sea")
 });
 var btn9 = document.getElementById("btn9");
 btn9.addEventListener("click", () => {  
-    redgrassArr = [];
-   for(i =0; i<matrix.length;i++){
-       
-      
-       for(c=0; c<matrix[0].length; c++){
-           if(matrix[i][c]==6){
-               matrix[i][c]=0;
-           };
-           }   
-         }
+    socket.emit("delete_redgrass","delete_redgrass")
+         
 });
 var btn10 = document.getElementById("btn10");
 btn10.addEventListener("click", () => {
-    grassArr = [];
-   for(i =0; i<matrix.length;i++){
-       
-      
-       for(c=0; c<matrix[0].length; c++){
-           if(matrix[i][c]==1){
-               matrix[i][c]=0;
-           };
-           }   
-         }
+    socket.emit("delete_hunters","delete_hunters")
 });
-var btn11 = document.getElementById("btn10");
+var btn11 = document.getElementById("btn11");
 btn11.addEventListener("click", () => {
     
-    eaterdarkArr = [];
-    
-   for(i =0; i<matrix.length;i++){
-       
-      
-       for(c=0; c<matrix[0].length; c++){
-           if(matrix[i][c]==5){
-               matrix[i][c]=0;
-           };
-           }   
-         }
+   
+          
 });
+///
 var sideP = document.getElementById("sideP");
 sideP.addEventListener("click", () => {
     side++;
